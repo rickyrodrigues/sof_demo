@@ -1,0 +1,126 @@
+[debug] [2025-06-06T14:50:22.496Z] ----------------------------------------------------------------------
+[debug] [2025-06-06T14:50:22.519Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Asus\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2025-06-06T14:50:22.520Z] CLI Version:   14.6.0
+[debug] [2025-06-06T14:50:22.521Z] Platform:      win32
+[debug] [2025-06-06T14:50:22.521Z] Node Version:  v20.11.0
+[debug] [2025-06-06T14:50:22.522Z] Time:          Fri Jun 06 2025 20:20:22 GMT+0530 (India Standard Time)
+[debug] [2025-06-06T14:50:22.522Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-06-06T14:50:22.541Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-06-06T14:50:22.542Z] > authorizing via signed-in user (crce.9636.ce@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Asus\OneDrive\Documents\templates\sof
+
+[info] 
+=== Account Setup
+[info] 
+[info] Which account do you want to use for this project? Choose an account or add a new one now
+[info] 
+[debug] [2025-06-06T14:58:05.035Z] setProjectAccount(C:\Users\Asus\OneDrive\Documents\templates\sof, crce.9636.ce@gmail.com)
+[info] 
+[info] +  Using account: crce.9636.ce@gmail.com 
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2025-06-06T14:58:12.017Z] Checked if tokens are valid: true, expires at: 1749224532271
+[debug] [2025-06-06T14:58:12.017Z] Checked if tokens are valid: true, expires at: 1749224532271
+[debug] [2025-06-06T14:58:12.024Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2025-06-06T14:58:12.843Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2025-06-06T14:58:12.844Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  Using project shieldoffaithdemo (shieldoffaithdemo) 
+[info] 
+=== Functions Setup
+[debug] [2025-06-06T14:58:14.818Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-06-06T14:58:14.818Z] > authorizing via signed-in user (crce.9636.ce@gmail.com)
+[debug] [2025-06-06T14:58:14.818Z] [iam] checking project shieldoffaithdemo for permissions ["firebase.projects.get"]
+[debug] [2025-06-06T14:58:14.819Z] Checked if tokens are valid: true, expires at: 1749224532271
+[debug] [2025-06-06T14:58:14.820Z] Checked if tokens are valid: true, expires at: 1749224532271
+[debug] [2025-06-06T14:58:14.821Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/shieldoffaithdemo:testIamPermissions [none]
+[debug] [2025-06-06T14:58:14.821Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/shieldoffaithdemo:testIamPermissions x-goog-quota-user=projects/shieldoffaithdemo
+[debug] [2025-06-06T14:58:14.821Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/shieldoffaithdemo:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-06-06T14:58:16.306Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/shieldoffaithdemo:testIamPermissions 200
+[debug] [2025-06-06T14:58:16.306Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/shieldoffaithdemo:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-06-06T14:58:16.307Z] Checked if tokens are valid: true, expires at: 1749224532271
+[debug] [2025-06-06T14:58:16.307Z] Checked if tokens are valid: true, expires at: 1749224532271
+[debug] [2025-06-06T14:58:16.307Z] Checked if tokens are valid: true, expires at: 1749224532271
+[debug] [2025-06-06T14:58:16.307Z] Checked if tokens are valid: true, expires at: 1749224532271
+[debug] [2025-06-06T14:58:16.310Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/shieldoffaithdemo/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-06-06T14:58:16.310Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/shieldoffaithdemo/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/shieldoffaithdemo
+[debug] [2025-06-06T14:58:16.312Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/shieldoffaithdemo/services/runtimeconfig.googleapis.com [none]
+[debug] [2025-06-06T14:58:16.312Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/shieldoffaithdemo/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/shieldoffaithdemo
+[debug] [2025-06-06T14:58:18.150Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/shieldoffaithdemo/services/runtimeconfig.googleapis.com 200
+[debug] [2025-06-06T14:58:18.151Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/shieldoffaithdemo/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2025-06-06T14:58:18.157Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/shieldoffaithdemo/services/cloudfunctions.googleapis.com 200
+[debug] [2025-06-06T14:58:18.157Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/shieldoffaithdemo/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-06-06T14:58:18.158Z] Checked if tokens are valid: true, expires at: 1749224532271
+[debug] [2025-06-06T14:58:18.158Z] Checked if tokens are valid: true, expires at: 1749224532271
+[debug] [2025-06-06T14:58:18.158Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/shieldoffaithdemo/services/cloudfunctions.googleapis.com:enable [none]
+[debug] [2025-06-06T14:58:18.158Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/shieldoffaithdemo/services/cloudfunctions.googleapis.com:enable x-goog-quota-user=projects/shieldoffaithdemo
+[debug] [2025-06-06T14:58:18.871Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/shieldoffaithdemo/services/cloudfunctions.googleapis.com:enable 200
+[debug] [2025-06-06T14:58:18.871Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/shieldoffaithdemo/services/cloudfunctions.googleapis.com:enable [omitted]
+[debug] [2025-06-06T14:58:28.880Z] Checked if tokens are valid: true, expires at: 1749224532271
+[debug] [2025-06-06T14:58:28.881Z] Checked if tokens are valid: true, expires at: 1749224532271
+[debug] [2025-06-06T14:58:28.882Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/shieldoffaithdemo/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-06-06T14:58:28.882Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/shieldoffaithdemo/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/shieldoffaithdemo
+[debug] [2025-06-06T14:58:30.969Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/shieldoffaithdemo/services/cloudfunctions.googleapis.com 200
+[debug] [2025-06-06T14:58:30.970Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/shieldoffaithdemo/services/cloudfunctions.googleapis.com [omitted]
+[info] Let's create a new codebase for your functions.
+[info] A directory corresponding to the codebase will be created in your project
+[info] with sample code pre-configured.
+
+[info] See https://firebase.google.com/docs/functions/organize-functions for
+[info] more information on organizing your functions using codebases.
+
+[info] Functions can be deployed with firebase deploy.
+
+[info] +  Wrote functions/package.json 
+[info] +  Wrote functions/.eslintrc.js 
+[info] +  Wrote functions/index.js 
+[info] +  Wrote functions/.gitignore 
+[info] 
+=== Hosting Setup
+[debug] [2025-06-06T15:01:43.919Z] Checked if tokens are valid: true, expires at: 1749224532271
+[debug] [2025-06-06T15:01:43.920Z] Checked if tokens are valid: true, expires at: 1749224532271
+[debug] [2025-06-06T15:01:43.921Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/shieldoffaithdemo [none]
+[debug] [2025-06-06T15:01:44.676Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/shieldoffaithdemo 200
+[debug] [2025-06-06T15:01:44.677Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/shieldoffaithdemo {"projectId":"shieldoffaithdemo","projectNumber":"353881791273","displayName":"shieldoffaithdemo","name":"projects/shieldoffaithdemo","resources":{"hostingSite":"shieldoffaithdemo"},"state":"ACTIVE","etag":"1_7f20d27c-efeb-48b1-8e3f-683025845589"}
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
+[info] +  Wrote ./404.html 
+[debug] [2025-06-06T15:06:55.647Z] >>> [apiv2][query] GET https://www.gstatic.com/firebasejs/releases.json [none]
+[debug] [2025-06-06T15:06:55.939Z] <<< [apiv2][status] GET https://www.gstatic.com/firebasejs/releases.json 200
+[debug] [2025-06-06T15:06:55.939Z] <<< [apiv2][body] GET https://www.gstatic.com/firebasejs/releases.json {"current":{"version":"11.9.0","browserURL":"https://www.gstatic.com/firebasejs/11.9.0/firebase.js","packageURL":"https://www.gstatic.com/firebasejs/11.9.0/firebase.tgz"},"live":{"version":"11.9","browserURL":"https://www.gstatic.com/firebasejs/live/11.9/firebase.js","packageURL":"https://www.gstatic.com/firebasejs/live/11.9/firebase.tgz"},"components":{"ai":"https://www.gstatic.com/firebasejs/11.9.0/firebase-ai.js","analytics":"https://www.gstatic.com/firebasejs/11.9.0/firebase-analytics.js","app":"https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js","app-check":"https://www.gstatic.com/firebasejs/11.9.0/firebase-app-check.js","auth":"https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js","auth/cordova":"https://www.gstatic.com/firebasejs/11.9.0/firebase-auth/cordova.js","auth/web-extension":"https://www.gstatic.com/firebasejs/11.9.0/firebase-auth/web-extension.js","functions":"https://www.gstatic.com/firebasejs/11.9.0/firebase-functions.js","firestore":"https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js","firestore/lite":"https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore/lite.js","installations":"https://www.gstatic.com/firebasejs/11.9.0/firebase-installations.js","storage":"https://www.gstatic.com/firebasejs/11.9.0/firebase-storage.js","performance":"https://www.gstatic.com/firebasejs/11.9.0/firebase-performance.js","remote-config":"https://www.gstatic.com/firebasejs/11.9.0/firebase-remote-config.js","messaging":"https://www.gstatic.com/firebasejs/11.9.0/firebase-messaging.js","messaging/sw":"https://www.gstatic.com/firebasejs/11.9.0/firebase-messaging/sw.js","database":"https://www.gstatic.com/firebasejs/11.9.0/firebase-database.js","vertexai":"https://www.gstatic.com/firebasejs/11.9.0/firebase-vertexai.js","data-connect":"https://www.gstatic.com/firebasejs/11.9.0/firebase-data-connect.js","firestore.memory":"https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.memory.js"}}
+[info] i  Skipping write of ./index.html 
+[info] 
+[info] i  Detected a .git folder at C:\Users\Asus 
+[info] i  Authorizing with GitHub to upload your service account to a GitHub repository's secrets store. 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://github.com/login/oauth/authorize?client_id=89cf50f02ac6aaed3484&state=487057421&redirect_uri=http%3A%2F%2Flocalhost%3A9005&scope=read%3Auser%20repo%20public_repo
+[info] 
+[info] Waiting for authentication...
+[debug] [2025-06-06T15:07:47.800Z] >>> [apiv2][query] POST https://github.com/login/oauth/access_token [none]
+[debug] [2025-06-06T15:07:47.800Z] >>> [apiv2][body] POST https://github.com/login/oauth/access_token [stream]
+[debug] [2025-06-06T15:07:48.333Z] <<< [apiv2][status] POST https://github.com/login/oauth/access_token 200
+[debug] [2025-06-06T15:07:48.334Z] <<< [apiv2][body] POST https://github.com/login/oauth/access_token {"access_token":"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","token_type":"bearer","scope":"read:user,repo"}
+[debug] [2025-06-06T15:07:48.354Z] >>> [apiv2][query] GET https://api.github.com/user [none]
+[debug] [2025-06-06T15:07:48.847Z] <<< [apiv2][status] GET https://api.github.com/user 200
+[debug] [2025-06-06T15:07:48.848Z] <<< [apiv2][body] GET https://api.github.com/user {"login":"rickyrodrigues","id":93785760,"node_id":"U_kgDOBZcOoA","avatar_url":"https://avatars.githubusercontent.com/u/93785760?v=4","gravatar_id":"","url":"https://api.github.com/users/rickyrodrigues","html_url":"https://github.com/rickyrodrigues","followers_url":"https://api.github.com/users/rickyrodrigues/followers","following_url":"https://api.github.com/users/rickyrodrigues/following{/other_user}","gists_url":"https://api.github.com/users/rickyrodrigues/gists{/gist_id}","starred_url":"https://api.github.com/users/rickyrodrigues/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/rickyrodrigues/subscriptions","organizations_url":"https://api.github.com/users/rickyrodrigues/orgs","repos_url":"https://api.github.com/users/rickyrodrigues/repos","events_url":"https://api.github.com/users/rickyrodrigues/events{/privacy}","received_events_url":"https://api.github.com/users/rickyrodrigues/received_events","type":"User","user_view_type":"private","site_admin":false,"name":"Rodrigues Ricky Dinesh","company":"Fr Conciecao Rodrigues College of engineering ","blog":"https://rickyrodrigues.github.io/my-portfolio/","location":"india","email":null,"hireable":null,"bio":"# Hi I'm Rodrigues Ricky ,a student at Fr Conciecao Rodrigues College of engineering ","twitter_username":null,"notification_email":null,"public_repos":45,"public_gists":0,"followers":4,"following":4,"created_at":"2021-11-05T16:23:58Z","updated_at":"2025-06-06T15:07:20Z","private_gists":0,"total_private_repos":3,"owned_private_repos":3,"disk_usage":493326,"collaborators":0,"two_factor_authentication":false,"plan":{"name":"pro","space":976562499,"collaborators":0,"private_repos":9999}}
+[info] 
+[info] +  Success! Logged into GitHub as rickyrodrigues 
+[info] 

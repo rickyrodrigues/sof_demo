@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Us & Volunteer | The Shield of Faith Community</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      <link rel="stylesheet" href="css/global.css">
+    <style>/* Page-specific styles for join-us.html */
+
+/* Hero Section - Unique for Join Us page */
+.join-hero {
+    background: linear-gradient(135deg,
+        rgba(37, 99, 235, 0.9) 0%,
+        rgba(30, 64, 175, 0.8) 50%,
+        rgba(59, 130, 246, 0.7) 100%),
+        url('https://images.unsplash.com/photo-1544027993-37dbfe43562a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    color: white;
+}
+
+.join-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(37, 99, 235, 0.1);
+}
+
+/* This .hero-content could be specific if its styling is unique here */
+.join-hero .hero-content {
+    position: relative;
+    z-index: 2;
+    /* Add any unique styling here if different from global .hero-content */
+}
+
+
+/* Benefits Cards - Specific to Join Us (assuming) */
+.benefit-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    height: 100%;
+    box-shadow: var(--shadow-light);
+    transition: all 0.3s ease;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.benefit-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-large);
+}
+
+.benefit-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2rem;
+    color: white;
+}
+
+/* Service Opportunity Cards - Specific to Join Us (assuming) */
+.service-opportunity-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    height: 100%;
+    box-shadow: var(--shadow-light);
+    transition: all 0.3s ease;
+    text-align: center;
+    border-left: 4px solid var(--primary-blue);
+}
+
+.service-opportunity-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.service-icon {
+    font-size: 2.5rem;
+    color: var(--primary-blue);
+    margin-bottom: 1rem;
+}
+
+/* Form Styling - Highly specific to Join Us form */
+.form-container {
+    background: white;
+    border-radius: 1.5rem;
+    padding: 3rem;
+    box-shadow: var(--shadow-large);
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.form-control,
+.form-select {
+    border-radius: 0.75rem;
+    border: 2px solid #e5e7eb;
+    padding: 0.875rem 1rem;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    background-color: #fafafa;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.1);
+    background-color: white;
+}
+
+.form-control.is-valid {
+    border-color: var(--success-green);
+    background-color: rgba(5, 150, 105, 0.05);
+}
+
+.form-control.is-invalid {
+    border-color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.05);
+}
+
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    background: #f8fafc;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.checkbox-item:hover {
+    background: #e2e8f0;
+    transform: translateY(-1px);
+}
+
+.checkbox-item.checked {
+    background: rgba(37, 99, 235, 0.1);
+    border-color: var(--primary-blue);
+}
+
+.form-check-input {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-right: 0.75rem;
+    border: 2px solid #d1d5db;
+    border-radius: 0.25rem;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-blue);
+    border-color: var(--primary-blue);
+}
+
+.form-check-label {
+    font-weight: 500;
+    color: var(--text-dark);
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+.btn-submit {
+    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+    color: white;
+    border: none;
+    padding: 1rem 3rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-large);
+    background: linear-gradient(135deg, var(--secondary-blue), #1e3a8a);
+}
+
+.btn-submit:disabled {
+    opacity: 0.7;
+    transform: none;
+}
+
+/* Testimonial Carousel - Assuming this is specific to join-us.html for its appearance */
+.join-us-testimonial-section .testimonial-card { /* More specific selector */
+    background: white;
+    border-radius: 1rem;
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+    margin: 0 1rem;
+}
+
+.join-us-testimonial-section .testimonial-card::before { /* More specific selector */
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 4rem;
+    color: var(--primary-blue);
+    font-family: 'Playfair Display', serif;
+}
+
+.join-us-testimonial-section .testimonial-text { /* More specific selector */
+    font-style: italic;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    color: var(--text-light);
+}
+
+/* The carousel controls can be global if used elsewhere, or specific if their exact appearance is unique here */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-blue);
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Alert Styling - Only if these specific *margins* or *backgrounds* are unique to this page */
+/* Otherwise, keep them global. I'll put them here for now based on your initial separation. */
+.alert-success-custom {
+    background: rgba(5, 150, 105, 0.1);
+    border: 1px solid var(--success-green);
+    color: var(--success-green);
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem;
+    margin-top: 1.5rem;
+}
+
+.alert-danger-custom {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid #ef4444;
+    color: #dc2626;
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem;
+    margin-top: 1.5rem;
+}
+
+/* Responsive Design for join-us.html - Specific overrides */
+@media (max-width: 768px) {
+    .join-hero {
+        min-height: 60vh;
+        text-align: center;
+    }
+
+    .volunteer-form {
+        padding: 2rem;
+    }
+
+    .form-container {
+        padding: 2rem 1.5rem;
+        margin: 0 1rem;
+    }
+
+    .checkbox-group {
+        grid-template-columns: 1fr;
+    }
+
+    /* Override for section-padding if it needs to be different on this page */
+    .join-us-section-padding { /* New specific class for section padding */
+        padding: 3rem 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .form-container {
+        padding: 1.5rem 1rem;
+    }
+
+    /* Override for section-title if it needs to be different on this page */
+    .join-us-section-title { /* New specific class for section title */
+        font-size: 1.75rem;
+    }
+}
+
+/* Animation for form elements - Specific to join-us.html */
+.form-group {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}</style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://placehold.co/40x40/2563eb/ffffff?text=SOF" alt="Shield of Faith Logo" width="40" height="40">
+                Shield of Faith
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us & History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="join.html">Join Us & Volunteer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="contact.html">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Hero Section -->
+    <section class="join-hero">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center hero-content">
+                    <h1 class="display-3 fw-bold text-white mb-4">Become a Part of Our Vibrant Community</h1>
+                    <p class="lead fs-4 text-white mb-0">Discover your place, share your gifts, and grow in faith with us.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Join Us Section -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="section-title text-primary">Experience Faith, Fellowship, and Growth</h2>
+                    <p class="text-center text-muted mb-5 fs-5">Join our welcoming community where faith comes alive through meaningful connections, purposeful service, and continuous spiritual growth. Experience the joy of belonging to a family that supports you through every season of life.</p>
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <div class="col">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Spiritual Nurturing</h4>
+                        <p class="text-muted">Engage in enriching prayer, scripture study, and sacraments that deepen your relationship with God and foster spiritual growth.</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Supportive Family</h4>
+                        <p class="text-muted">Find a welcoming and loving community that walks with you through life's joys and challenges with compassion and care.</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Purposeful Service</h4>
+                        <p class="text-muted">Discover opportunities to use your unique talents to serve others and make a tangible difference in your community.</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-book-reader"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Lifelong Learning</h4>
+                        <p class="text-muted">Participate in workshops, talks, and discussions that foster continuous spiritual and personal development.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <section class="section-padding" id="volunteer-form">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="section-title text-primary">Lend Your Talents: Volunteer with Us</h2>
+                    <p class="section-subtitle">Ready to make a difference? Fill out our volunteer application and we'll connect you with opportunities that match your interests and availability.</p>
+                </div>
+            </div>
+            
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="form-container">
+                        <form id="volunteerForm">
+                            <!-- Name and Email Row -->
+                            <div class="row mb-4">
+                                <div class="col-md-6 form-group">
+                                    <label for="fullName" class="form-label">Full Name *</label>
+                                    <input type="text" class="form-control" id="fullName" name="entry.1332221371" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="email" class="form-label">Email Address *</label>
+                                    <input type="email" class="form-control" id="email" name="entry.1648525225" required>
+                                </div>
+                            </div>
+
+                            <!-- Phone and Availability Row -->
+                            <div class="row mb-4">
+                                <div class="col-md-6 form-group">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone" name="entry.1337205483">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="availability" class="form-label">Availability</label>
+                                    <select class="form-select" id="availability" name="entry.2076936504">
+                                        <option value="">Select your availability</option>
+                                        <option value="Weekdays">Weekdays</option>
+                                        <option value="Weekends">Weekends</option>
+                                        <option value="Evenings">Evenings</option>
+                                        <option value="Flexible">Flexible</option>
+                                        <option value="Occasional">Occasional</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Service Areas -->
+                            <div class="mb-4 form-group">
+                                <label class="form-label">Preferred Areas of Service (Check all that apply)</label>
+                                <div class="checkbox-group">
+                                    <div class="checkbox-item">
+                                        <input class="form-check-input" type="checkbox" value="Event Support" id="eventSupport" name="entry.1283366248">
+                                        <label class="form-check-label" for="eventSupport">Event Support</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input class="form-check-input" type="checkbox" value="Community Outreach" id="communityOutreach" name="entry.1283366248">
+                                        <label class="form-check-label" for="communityOutreach">Community Outreach</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input class="form-check-input" type="checkbox" value="Administrative Tasks" id="administrativeTasks" name="entry.1283366248">
+                                        <label class="form-check-label" for="administrativeTasks">Administrative Tasks</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input class="form-check-input" type="checkbox" value="Mentoring" id="mentoring" name="entry.1283366248">
+                                        <label class="form-check-label" for="mentoring">Mentoring</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input class="form-check-input" type="checkbox" value="Community Prayer" id="communityPrayer" name="entry.1283366248">
+                                        <label class="form-check-label" for="communityPrayer">Community Prayer</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input class="form-check-input" type="checkbox" value="Spiritual Retreats" id="spiritualRetreats" name="entry.1283366248">
+                                        <label class="form-check-label" for="spiritualRetreats">Spiritual Retreats</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input class="form-check-input" type="checkbox" value="Youth & Family Ministry" id="youthFamily" name="entry.1283366248">
+                                        <label class="form-check-label" for="youthFamily">Youth & Family Ministry</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input class="form-check-input" type="checkbox" value="Pastoral Care" id="pastoralCare" name="entry.1283366248">
+                                        <label class="form-check-label" for="pastoralCare">Pastoral Care</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input class="form-check-input" type="checkbox" value="Media & Communications" id="mediaComms" name="entry.1283366248">
+                                        <label class="form-check-label" for="mediaComms">Media & Communications</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Skills and Experience -->
+                            <div class="mb-4 form-group">
+                                <label for="skills" class="form-label">Skills & Experience</label>
+                                <textarea class="form-control" id="skills" name="entry.196209960" rows="4" placeholder="Tell us about your relevant skills, experience, or talents you'd like to contribute..."></textarea>
+                            </div>
+
+                            <!-- Why Volunteer -->
+                            <div class="mb-4 form-group">
+                                <label for="whyVolunteer" class="form-label">Why do you want to volunteer with us?</label>
+                                <textarea class="form-control" id="whyVolunteer" name="entry.1437773920" rows="4" placeholder="Share what motivates you to serve and how you hope to contribute to our community..."></textarea>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-submit">
+                                    <i class="fas fa-paper-plane me-2"></i>Submit Application
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <!-- Alert Container -->
+                        <div id="formAlert" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Volunteer Testimonials Section -->
+    <section class="section-padding bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="section-title text-dark">Voices of Service: Hear From Our Volunteers</h2>
+                    <p class="text-center text-muted mb-5 fs-5">Discover how volunteering has enriched the lives of our community members and the impact they've made.</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="testimonial-card">
+                                    <p class="testimonial-text fs-5">"Volunteering with the youth ministry has been incredibly rewarding. Seeing young people grow in faith and watching their faces light up during our activities fills my heart with joy. This community has given me so much more than I could ever give back."</p>
+                                    <div>
+                                        <h5 class="fw-bold mb-1">Maria Rodriguez</h5>
+                                        <p class="text-muted mb-0">Youth Ministry Coordinator</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="testimonial-card">
+                                    <p class="testimonial-text fs-5">"Being part of the outreach team has opened my eyes to the power of community service. Every food drive, every visit to the elderly, every small act of kindness creates ripples of love that extend far beyond what we can see."</p>
+                                    <div>
+                                        <h5 class="fw-bold mb-1">James D'Souza</h5>
+                                        <p class="text-muted mb-0">Community Outreach Volunteer</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="testimonial-card">
+                                    <p class="testimonial-text fs-5">"Joining the music ministry has been a beautiful way to serve God with the talents He gave me. There's something magical about lifting voices together in worship and seeing how music touches hearts during our services."</p>
+                                    <div>
+                                        <h5 class="fw-bold mb-1">Sarah Fernandes</h5>
+                                        <p class="text-muted mb-0">Music Ministry Leader</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<footer class="footer">
+        <div class="footer-main">
+            <div class="container">
+                <!-- Footer Brand -->
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="https://placehold.co/50x50/2563eb/ffffff?text=✝" alt="Shield of Faith Logo">
+                        <h2>The Shield of Faith</h2>
+                    </div>
+                    <p class="footer-tagline">
+                        Nurturing souls, strengthening faith, and building community in Christ's love since 1891
+                    </p>
+                </div>
+
+                <!-- Footer Content -->
+                <div class="footer-content">
+                    <!-- Quick Links -->
+                  <div class="footer-section">
+                        <h3>Quick Links</h3>
+                        <ul class="footer-links">
+                            <li><a href="about.html"><i class="fas fa-chevron-right"></i>About Us</a></li>
+                            <li><a href="events.html"><i class="fas fa-chevron-right"></i>Events</a></li>
+                            <li><a href="join.html"><i class="fas fa-chevron-right"></i>Join Us</a></li>
+                            <li><a href="admin_login.html"><i class="fas fa-chevron-right"></i>Admin</a></li>
+                            <li><a href="#donate"><i class="fas fa-chevron-right"></i>Support Us</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="footer-section">
+                        <h3>Contact Us</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div>
+                                    <strong>Address</strong><br>
+                                    Vasai Diocese, Maharashtra, India
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <strong>Phone</strong><br>
+                                    <a href="tel:+91-9876543210">+91 98765 43210</a>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <strong>Email</strong><br>
+                                    <a href="mailto:info@shieldoffaith.org">info@shieldoffaith.org</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mass Schedule -->
+                    <div class="footer-section">
+                        <h3>Mass Schedule</h3>
+                        <div class="mass-schedule">
+                            <div class="mass-times">
+                                <div class="mass-time">
+                                    <span><strong>Sunday</strong></span>
+                                    <span>9:00 AM</span>
+                                </div>
+                                <div class="mass-time">
+                                    <span><strong>Wednesday</strong></span>
+                                    <span>7:00 PM</span>
+                                </div>
+                                <div class="mass-time">
+                                    <span><strong>Saturday</strong></span>
+                                    <span>6:30 PM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Diocese Information -->
+                    <div class="footer-section">
+                        <h3>Diocese Information</h3>
+                        <ul class="footer-links">
+                            <li><a href="#"><i class="fas fa-user-tie"></i>Bishop Thomas Dabre</a></li>
+                            <li><a href="#"><i class="fas fa-church"></i>Vasai Diocese</a></li>
+                            <li><a href="#"><i class="fas fa-calendar-alt"></i>Established 1891</a></li>
+                            <li><a href="#"><i class="fas fa-book-open"></i>Parish Directory</a></li>
+                            <li><a href="#"><i class="fas fa-newspaper"></i>Diocese News</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Social Media Section -->
+                <div class="social-section">
+                    <h3 style="color: white; font-family: 'Playfair Display', serif; margin-bottom: 1rem;">Connect With Us</h3>
+                    <p style="color: #94a3b8; margin-bottom: 1rem;">Join our community online and stay updated with our latest activities</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <div class="footer-left">
+                        <p>&copy; 2024 The Shield of Faith Community, Vasai Diocese. All rights reserved.</p>
+                        <p class="designer-credit">
+                            Designed by <a href="hthttp://rickyrodrigues.me/portfolio/" target="_blank" rel="noopener noreferrer" class="designer-link">Ricky Rodrigues</a>
+                        </p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="#">Privacy Policy</a> | 
+                        <a href="#">Terms of Service</a> | 
+                        <a href="#">Site Map</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    // Set active navigation link
+    $('.navbar-nav .nav-link[href*="join-us"]').addClass('active');
+
+    // Initialize carousel
+    $('#testimonialCarousel').carousel({
+        interval: 5000,
+        wrap: true
+    });
+
+    // Updated Google Apps Script Web App URL
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzKVUvLBo-Yz-ibeMnO_P5PlONja5OtkEWfzDpsLoG8ryEuvLh0vmhmjwJ4sYj6EVLdEQ/exec';
+
+    // Volunteer form submission with Google Apps Script integration
+    $('#volunteerForm').on('submit', function(e) {
+        e.preventDefault();
+        
+        // Hide any existing alerts
+        $('#formAlert').hide();
+        
+        // Validate required fields
+        let isValid = true;
+        $(this).find('input[required], select[required], textarea[required]').each(function() {
+            if (!$(this).val().trim()) {
+                $(this).addClass('is-invalid');
+                isValid = false;
+            } else {
+                $(this).removeClass('is-invalid').addClass('is-valid');
+            }
+        });
+        
+        if (!isValid) {
+            showAlert('error', 'Please fill in all required fields before submitting.');
+            return;
+        }
+        
+        // Show loading state
+        const submitBtn = $(this).find('button[type="submit"]');
+        const originalText = submitBtn.html();
+        submitBtn.html('<i class="fas fa-spinner fa-spin me-2"></i>Submitting...').prop('disabled', true);
+        
+        // Collect checkbox values for service areas - Fixed selector
+        const serviceAreas = [];
+        $('input[name="serviceAreas"]:checked, input[name="entry.1283366248"]:checked').each(function() {
+            serviceAreas.push($(this).val());
+        });
+        
+        // Prepare form data
+        const formData = {
+            fullName: $('#fullName').val().trim(),
+            email: $('#email').val().trim(),
+            phone: $('#phone').val().trim(),
+            availability: $('#availability').val(),
+            serviceAreas: serviceAreas.join(', '),
+            skills: $('#skills').val().trim(),
+            whyVolunteer: $('#whyVolunteer').val().trim()
+        };
+        
+        console.log('Sending form data:', formData); // Debug log
+        
+        // Submit to Google Apps Script
+        $.ajax({
+            url: APPS_SCRIPT_URL,
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            crossDomain: true,
+            success: function(response) {
+                console.log('Success Response:', response);
+                if (response && (response.status === 'success' || response.result === 'success')) {
+                    showAlert('success', 'Thank you for your volunteer application! We have received your information and will contact you soon to discuss opportunities that match your interests.');
+                    
+                    // Reset form
+                    $('#volunteerForm')[0].reset();
+                    $('.form-control, .form-select').removeClass('is-valid is-invalid');
+                } else {
+                    showAlert('error', response ? response.message : 'There was an error submitting your application. Please try again.');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Form submission error:', error);
+                console.error('XHR Status:', xhr.status);
+                console.error('Response Text:', xhr.responseText);
+                
+                // Try to parse the response in case it's actually successful
+                try {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response && (response.status === 'success' || response.result === 'success')) {
+                        showAlert('success', 'Thank you for your volunteer application! We have received your information and will contact you soon to discuss opportunities that match your interests.');
+                        
+                        // Reset form
+                        $('#volunteerForm')[0].reset();
+                        $('.form-control, .form-select').removeClass('is-valid is-invalid');
+                        return;
+                    }
+                } catch (parseError) {
+                    console.error('Could not parse response:', parseError);
+                }
+                
+                showAlert('error', 'There was an error submitting your application. Please try again later.');
+            },
+            complete: function() {
+                // Restore button
+                submitBtn.html(originalText).prop('disabled', false);
+            }
+        });
+    });
+    
+    // Function to show alerts
+    function showAlert(type, message) {
+        const alertClass = type === 'success' ? 'alert-success-custom' : 'alert-danger-custom';
+        const iconClass = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-triangle';
+        
+        const alertHtml = `
+            <div class="alert ${alertClass} alert-dismissible fade show" role="alert">
+                <i class="${iconClass} me-2"></i>
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        `;
+        
+        $('#formAlert').html(alertHtml).show();
+        
+        // Scroll to alert
+        $('html, body').animate({
+            scrollTop: $('#formAlert').offset().top - 100
+        }, 500);
+    }
+    
+    // Smooth scrolling for anchor links
+    $('a[href^="#"]').on('click', function(e) {
+        e.preventDefault();
+        const target = $(this.getAttribute('href'));
+        if (target.length) {
+            $('html, body').animate({
+                scrollTop: target.offset().top - 80
+            }, 800);
+        }
+    });
+    
+    // Add animation on scroll
+    function animateOnScroll() {
+        $('.benefit-card, .service-opportunity-card').each(function() {
+            const elementTop = $(this).offset().top;
+            const elementBottom = elementTop + $(this).outerHeight();
+            const viewportTop = $(window).scrollTop();
+            const viewportBottom = viewportTop + $(window).height();
+            
+            if (elementBottom > viewportTop && elementTop < viewportBottom) {
+                $(this).addClass('animate-in');
+            }
+        });
+    }
+    
+    // Trigger animation on scroll
+    $(window).on('scroll', function() {
+        animateOnScroll();
+    });
+    
+    // Trigger animation on page load
+    animateOnScroll();
+    
+    // Enhanced form validation
+    $('#volunteerForm input, #volunteerForm select, #volunteerForm textarea').on('blur', function() {
+        validateField($(this));
+    });
+    
+    function validateField(field) {
+        const fieldValue = field.val().trim();
+        
+        // Remove existing validation classes
+        field.removeClass('is-valid is-invalid');
+        
+        // Email validation
+        if (field.attr('type') === 'email' && fieldValue) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailRegex.test(fieldValue)) {
+                field.addClass('is-valid');
+            } else {
+                field.addClass('is-invalid');
+            }
+        }
+        
+        // Phone validation (basic)
+        if (field.attr('type') === 'tel' && fieldValue) {
+            const phoneRegex = /^[\+]?[\d\s\-\(\)]{10,}$/;
+            if (phoneRegex.test(fieldValue)) {
+                field.addClass('is-valid');
+            } else {
+                field.addClass('is-invalid');
+            }
+        }
+        
+        // Required field validation
+        if (field.prop('required')) {
+            if (fieldValue) {
+                field.addClass('is-valid');
+            } else {
+                field.addClass('is-invalid');
+            }
+        }
+    }
+    
+    // Auto-advance carousel on hover pause
+    $('#testimonialCarousel').hover(
+        function() {
+            $(this).carousel('pause');
+        },
+        function() {
+            $(this).carousel('cycle');
+        }
+    );
+    
+    // Add visual feedback for form interactions
+    $('.form-control, .form-check-input').on('focus', function() {
+        $(this).parent().addClass('focused');
+    }).on('blur', function() {
+        $(this).parent().removeClass('focused');
+    });
+});
+</script>
+</body>
+</html>

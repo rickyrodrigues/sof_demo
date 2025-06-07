@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events | The Shield of Faith Community</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Global CSS would be linked here -->
+  <link rel="stylesheet" href="css/global.css">
+    
+    <style>/* Page-specific styles for events.html */
+
+/* Events Hero Section */
+.events-hero {
+    background: linear-gradient(135deg,
+        rgba(37, 99, 235, 0.9) 0%,
+        rgba(30, 64, 175, 0.8) 50%,
+        rgba(59, 130, 246, 0.7) 100%),
+        url('https://placehold.co/1920x600/7B68EE/FFFFFF?text=Events+Gathering');
+    background-size: cover;
+    background-position: center;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    color: white; /* Ensure text color is white for readability on the hero image */
+}
+
+.events-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.events-hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Filter Buttons */
+.filter-section {
+    background: var(--bg-light); /* Using global variable */
+    padding: 2rem 0;
+    margin-bottom: 3rem;
+}
+
+.filter-btn {
+    background: var(--white); /* Using global variable */
+    border: 2px solid var(--primary-blue); /* Using global variable */
+    color: var(--primary-blue); /* Using global variable */
+    padding: 0.5rem 1.5rem;
+    border-radius: 2rem;
+    margin: 0.25rem;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--primary-blue); /* Using global variable */
+    color: var(--white); /* Using global variable */
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium); /* Using global variable */
+}
+
+/* Calendar Placeholder */
+.calendar-placeholder {
+    background: linear-gradient(135deg, var(--bg-light) 0%, #e2e8f0 100%);
+    border-radius: 1rem;
+    padding: 3rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    border: 2px dashed var(--primary-blue); /* Using global variable */
+}
+
+.calendar-icon {
+    font-size: 4rem;
+    color: var(--primary-blue); /* Using global variable */
+    margin-bottom: 1rem;
+}
+
+/* Event Cards */
+.event-card {
+    background: var(--white); /* Using global variable */
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-light); /* Using global variable */
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    height: 100%;
+}
+
+.event-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-large); /* Using global variable */
+}
+
+.event-card-img {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.event-card-body {
+    padding: 1.5rem;
+}
+
+.event-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--text-dark); /* Using global variable */
+}
+
+.event-meta {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    color: var(--text-light); /* Using global variable */
+    font-size: 0.9rem;
+}
+
+.event-meta i {
+    margin-right: 0.5rem;
+    color: var(--primary-blue); /* Using global variable */
+    width: 16px;
+}
+
+.event-description {
+    color: var(--text-light); /* Using global variable */
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.age-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-weight: 500;
+}
+
+.badge-youth {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.badge-families {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.badge-all-ages {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.badge-adults {
+    background: #f3e8ff;
+    color: #7c3aed;
+}
+
+.event-quote {
+    font-style: italic;
+    color: var(--primary-blue); /* Using global variable */
+    font-size: 0.9rem;
+    border-left: 3px solid var(--primary-blue); /* Using global variable */
+    padding-left: 1rem;
+    margin: 1rem 0;
+}
+
+/* Past Events Gallery */
+.past-events-section {
+    background: var(--bg-light); /* Using global variable */
+    padding: 5rem 0;
+    margin-top: 4rem;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    box-shadow: var(--shadow-light); /* Using global variable */
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-large); /* Using global variable */
+}
+
+.gallery-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery-item:hover .gallery-img {
+    transform: scale(1.1);
+}
+
+.gallery-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: white;
+    padding: 1.5rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+    transform: translateY(0);
+}
+
+.gallery-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.gallery-date {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Interactive Calendar Styles */
+.calendar-section {
+    background: var(--bg-light); /* Using global variable */
+    padding: 3rem 0;
+    margin-bottom: 3rem;
+}
+
+.calendar-container {
+    background: var(--white); /* Using global variable */
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.calendar-header {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%); /* Using global variables */
+    color: white;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.calendar-nav-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.calendar-nav-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background: #e5e7eb;
+}
+
+.calendar-day-header {
+    background: #f3f4f6;
+    padding: 1rem;
+    text-align: center;
+    font-weight: 600;
+    color: #374151; /* Consider using var(--text-dark) */
+}
+
+.calendar-day {
+    background: var(--white); /* Using global variable */
+    padding: 1rem;
+    min-height: 80px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.calendar-day:hover {
+    background: var(--bg-light); /* Using global variable */
+}
+
+.calendar-day.has-event {
+    background: #dbeafe; /* Consider using a color variable if applicable */
+}
+
+.calendar-day.has-event:hover {
+    background: #bfdbfe; /* Consider using a color variable if applicable */
+}
+
+.calendar-day.other-month {
+    color: #9ca3af; /* Consider using a color variable if applicable */
+    background: #f9fafb; /* Consider using a color variable if applicable */
+}
+
+.event-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--primary-blue); /* Using global variable */
+    border-radius: 50%;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.event-popup {
+    position: absolute;
+    background: var(--white); /* Using global variable */
+    border: 1px solid #e5e7eb; /* Consider using a color variable if applicable */
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Consider using var(--shadow-medium) */
+    z-index: 1000;
+    min-width: 250px;
+    display: none;
+}
+
+.event-popup.show {
+    display: block;
+}
+
+.popup-event {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f3f4f6; /* Consider using a color variable if applicable */
+}
+
+.popup-event:last-child {
+    border-bottom: none;
+}
+
+.popup-event-title {
+    font-weight: 600;
+    color: var(--text-dark); /* Using global variable */
+    margin-bottom: 0.25rem;
+}
+
+.popup-event-time {
+    font-size: 0.875rem;
+    color: var(--text-light); /* Using global variable */
+}
+
+/* Responsive adjustments for Events */
+@media (max-width: 768px) {
+    .events-hero {
+        min-height: 50vh;
+        text-align: center;
+    }
+
+    .filter-btn {
+        display: block;
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+
+    /* Newsletter form styles are global, removed here as per instructions */
+    /* .newsletter-form {
+        flex-direction: column;
+    }
+
+    .newsletter-input {
+        margin-bottom: 1rem;
+    } */
+
+    .event-card-body {
+        padding: 1rem;
+    }
+
+    .gallery-overlay {
+        transform: translateY(0);
+        background: rgba(0, 0, 0, 0.7);
+    }
+}
+
+/* Animation classes (kept here if only used on events page) */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}</style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://placehold.co/40x40/2563eb/ffffff?text=SOF" alt="Shield of Faith Logo" width="40" height="40">
+                Shield of Faith
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us & History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="join.html">Join Us & Volunteer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="contact.html">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="events-hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center events-hero-content">
+                    <h1 class="display-3 fw-bold text-white mb-4">Join Us for Our Upcoming Events</h1>
+                    <p class="lead fs-4 text-white">Discover opportunities for prayer, fellowship, and spiritual growth with our community. All are welcome!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Filters -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="text-center mb-4">Filter Events</h3>
+                    <div class="text-center">
+                        <h5 class="mb-3">By Age Group:</h5>
+                        <button class="btn filter-btn active" data-age-group="all">All Ages</button>
+                        <button class="btn filter-btn" data-age-group="youth">Youth & Young Adults</button>
+                        <button class="btn filter-btn" data-age-group="families">Families</button>
+                        <button class="btn filter-btn" data-age-group="adults">Adults</button>
+                    </div>
+                    <div class="text-center mt-4">
+                        <h5 class="mb-3">By Event Type:</h5>
+                        <button class="btn filter-btn active" data-event-type="all">All Events</button>
+                        <button class="btn filter-btn" data-event-type="prayer">Prayer Meetings</button>
+                        <button class="btn filter-btn" data-event-type="retreat">Retreats</button>
+                        <button class="btn filter-btn" data-event-type="workshop">Workshops</button>
+                        <button class="btn filter-btn" data-event-type="service">Community Service</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Interactive Calendar -->
+<section class="calendar-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="section-title text-primary text-center mb-4">Event Calendar</h2>
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <button class="calendar-nav-btn" id="prevMonth">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <h3 id="currentMonthYear"></h3>
+                        <button class="calendar-nav-btn" id="nextMonth">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Calendar will be generated by JavaScript -->
+                    </div>
+                </div>
+                <div class="event-popup" id="eventPopup">
+                    <!-- Event details will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Upcoming Events Section -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="section-title text-primary">Upcoming Events: Mark Your Calendar!</h2>
+                    <p class="section-subtitle">Join us for these inspiring gatherings and spiritual experiences</p>
+                </div>
+            </div>
+
+
+            <!-- Event Cards Grid -->
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="events-grid">
+                <!-- Sample Event 1: Youth Session -->
+                <div class="col event-item" data-age-group="youth" data-event-type="workshop">
+                    <div class="event-card fade-in">
+                        <img src="https://placehold.co/600x400/DDA0DD/FFFFFF?text=Youth+Session" alt="Youth Session" class="event-card-img">
+                        <div class="event-card-body">
+                            <h3 class="event-title">IGNITE Your Faith This Lent! - One-Day Youth Session</h3>
+                            <div class="event-meta">
+                                <i class="far fa-calendar-alt"></i>
+                                <span>March 10, 2025</span>
+                            </div>
+                            <div class="event-meta">
+                                <i class="far fa-clock"></i>
+                                <span>9:00 AM - 5:00 PM</span>
+                            </div>
+                            <div class="event-meta">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Community Center</span>
+                            </div>
+                            <p class="event-description">A powerful day of worship, inspiration, and transformation for youth. Expect uplifting Praise & Worship, engaging Talks, Activities, Group discussions, and inspiring Testimonies.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="age-badge badge-youth">Youth & Young Adults</span>
+                                <a href="https://surl.li/kmnhxg" class="btn btn-sm btn-primary-custom rounded-pill" target="_blank">Register Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample Event 2: Youth Purpose -->
+                <div class="col event-item" data-age-group="youth" data-event-type="prayer">
+                    <div class="event-card fade-in">
+                        <img src="https://placehold.co/600x400/87CEEB/FFFFFF?text=Youth+Purpose" alt="Youth Purpose" class="event-card-img">
+                        <div class="event-card-body">
+                            <h3 class="event-title">Youth: You Are Chosen for a Purpose!</h3>
+                            <div class="event-meta">
+                                <i class="far fa-calendar-alt"></i>
+                                <span>November 2, 2024</span>
+                            </div>
+                            <div class="event-meta">
+                                <i class="far fa-clock"></i>
+                                <span>6:30 PM – 7:30 PM</span>
+                            </div>
+                            <div class="event-meta">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Shield of Faith Samaj Kendra, Bhuigaon, Vasai</span>
+                            </div>
+                            <p class="event-description">An evening filled with faith, praise, and fellowship. Powerful worship and a message that speaks to your journey.</p>
+                            <div class="event-quote">
+                                "For many are called, but few are chosen." — Matthew 22:14
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="age-badge badge-youth">Youth</span>
+                                <a href="contact.html" class="btn btn-sm btn-primary-custom rounded-pill">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample Event 3: Youth Retreat -->
+                <div class="col event-item" data-age-group="youth" data-event-type="retreat">
+                    <div class="event-card fade-in">
+                        <img src="https://placehold.co/600x400/98FB98/FFFFFF?text=Youth+Retreat" alt="Youth Retreat" class="event-card-img">
+                        <div class="event-card-body">
+                            <h3 class="event-title">Shield of Faith Youth Retreat: 'Purpose!'</h3>
+                            <div class="event-meta">
+                                <i class="far fa-calendar-alt"></i>
+                                <span>September 14-16, 2024</span>
+                            </div>
+                            <div class="event-meta">
+                                <i class="far fa-clock"></i>
+                                <span>8:30 AM - 4:00 PM</span>
+                            </div>
+                            <div class="event-meta">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Shield of Faith Centre, Bhuigaon, Vasai</span>
+                            </div>
+                            <div class="event-meta">
+                                <i class="fas fa-rupee-sign"></i>
+                                <span>Registration Fees: ₹700/-</span>
+                            </div>
+                            <p class="event-description">Discover your true purpose in Christ! An inspiring weekend of worship, workshops, and powerful teachings. Let's align our lives with God's plan!</p>
+                            <div class="event-quote">
+                                "For we are God's handiwork, created in Christ Jesus to do good works..." - Ephesians 2:10
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="age-badge badge-youth">Youth</span>
+                                <a href="https://shorturl.at/EF1IE" class="btn btn-sm btn-primary-custom rounded-pill" target="_blank">Register Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample Event 4: Follow-up Prayer -->
+                <div class="col event-item" data-age-group="all" data-event-type="prayer">
+                    <div class="event-card fade-in">
+                        <img src="https://placehold.co/600x400/FFB6C1/FFFFFF?text=Prayer+Gathering" alt="Prayer Gathering" class="event-card-img">
+                        <div class="event-card-body">
+                            <h3 class="event-title">Special Follow-Up Prayer Gathering</h3>
+                            <div class="event-meta">
+                                <i class="far fa-calendar-alt"></i>
+                                <span>October 2, 2024</span>
+                            </div>
+                            <div class="event-meta">
+                                <i class="far fa-clock"></i>
+                                <span>5:00 PM</span>
+                            </div>
+                            <div class="event-meta">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>SOF Samaj Kendra</span>
+                            </div>
+                            <p class="event-description">We hope you missed us! After our amazing retreat, we're excited to invite you to a follow-up prayer gathering. Come for the prayers, stay for the laughter (and maybe some snacks)! Your presence is the secret ingredient that makes our gatherings truly special.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="age-badge badge-all-ages">All Ages</span>
+                                <a href="contact.html" class="btn btn-sm btn-primary-custom rounded-pill">Join Us</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Past Events Gallery -->
+    <section class="past-events-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="section-title text-dark">Memories from Our Journey: Past Events</h2>
+                    <p class="section-subtitle">Relive the beautiful moments from our community gatherings</p>
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="past-events-grid">
+    <!-- Past events will be dynamically loaded here -->
+</div>
+  
+                
+            </div>
+            <div class="text-center mt-4">
+                <button class="btn btn-outline-custom">View More Past Events</button>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-title text-white">Stay Updated on Our Events</h2>
+                    <p class="section-subtitle text-white opacity-75">Subscribe to our newsletter to receive notifications about upcoming events and community news.</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                        <button type="submit" class="btn btn-custom btn-outline-custom">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="container">
+                <!-- Footer Brand -->
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="https://placehold.co/50x50/2563eb/ffffff?text=✝" alt="Shield of Faith Logo">
+                        <h2>The Shield of Faith</h2>
+                    </div>
+                    <p class="footer-tagline">
+                        Nurturing souls, strengthening faith, and building community in Christ's love since 1891
+                    </p>
+                </div>
+
+                <!-- Footer Content -->
+                <div class="footer-content">
+                    <!-- Quick Links -->
+                    <div class="footer-section">
+                        <h3>Quick Links</h3>
+                        <ul class="footer-links">
+                            <li><a href="#about"><i class="fas fa-chevron-right"></i>About Our Community</a></li>
+                            <li><a href="#ministries"><i class="fas fa-chevron-right"></i>Ministries</a></li>
+                            <li><a href="#events"><i class="fas fa-chevron-right"></i>Events & Retreats</a></li>
+                            <li><a href="#volunteer"><i class="fas fa-chevron-right"></i>Volunteer</a></li>
+                            <li><a href="#donate"><i class="fas fa-chevron-right"></i>Support Us</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="footer-section">
+                        <h3>Contact Us</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div>
+                                    <strong>Address</strong><br>
+                                    Vasai Diocese, Maharashtra, India
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <strong>Phone</strong><br>
+                                    <a href="tel:+91-9876543210">+91 98765 43210</a>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <strong>Email</strong><br>
+                                    <a href="mailto:info@shieldoffaith.org">info@shieldoffaith.org</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mass Schedule -->
+                    <div class="footer-section">
+                        <h3>Mass Schedule</h3>
+                        <div class="mass-schedule">
+                            <div class="mass-times">
+                                <div class="mass-time">
+                                    <span><strong>Sunday</strong></span>
+                                    <span>9:00 AM</span>
+                                </div>
+                                <div class="mass-time">
+                                    <span><strong>Wednesday</strong></span>
+                                    <span>7:00 PM</span>
+                                </div>
+                                <div class="mass-time">
+                                    <span><strong>Saturday</strong></span>
+                                    <span>6:30 PM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Diocese Information -->
+                  <div class="footer-section">
+                        <h3>Quick Links</h3>
+                        <ul class="footer-links">
+                            <li><a href="about.html"><i class="fas fa-chevron-right"></i>About Us</a></li>
+                            <li><a href="events.html"><i class="fas fa-chevron-right"></i>Events</a></li>
+                            <li><a href="join.html"><i class="fas fa-chevron-right"></i>Join Us</a></li>
+                            <li><a href="admin_login.html"><i class="fas fa-chevron-right"></i>Admin</a></li>
+                            <li><a href="#donate"><i class="fas fa-chevron-right"></i>Support Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Social Media Section -->
+                <div class="social-section">
+                    <h3 style="color: white; font-family: 'Playfair Display', serif; margin-bottom: 1rem;">Connect With Us</h3>
+                    <p style="color: #94a3b8; margin-bottom: 1rem;">Join our community online and stay updated with our latest activities</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <div class="footer-left">
+                        <p>&copy; 2024 The Shield of Faith Community, Vasai Diocese. All rights reserved.</p>
+                        <p class="designer-credit">
+                            Designed by <a href="hthttp://rickyrodrigues.me/portfolio/" target="_blank" rel="noopener noreferrer" class="designer-link">Ricky Rodrigues</a>
+                        </p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="#">Privacy Policy</a> | 
+                        <a href="#">Terms of Service</a> | 
+                        <a href="#">Site Map</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+  <script type="module" src="js/events.js"></script>
+
+</body>
+</html>

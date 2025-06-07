@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | The Shield of Faith Community</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="css/global.css">
+    
+    <style>/* Page-specific styles for contact-us.html */
+
+/* Contact Hero Section */
+.contact-hero {
+    background: linear-gradient(135deg, var(--secondary-blue) 0%, var(--primary-blue) 100%);
+    padding: 120px 0 80px;
+    color: white;
+    text-align: center;
+}
+
+.contact-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.contact-hero .lead {
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Contact Location Section */
+.contact-location-section {
+    padding: 80px 0;
+    background: var(--bg-light);
+}
+
+.location-container {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); /* Specific shadow, not identical to --shadow-large */
+}
+
+.location-info {
+    padding: 3rem;
+    background: linear-gradient(135deg, var(--secondary-blue) 0%, var(--primary-blue) 100%);
+    color: white;
+}
+
+.location-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.location-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    font-size: 1.5rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.info-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.info-content h5 {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.info-content a {
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.info-content a:hover {
+    opacity: 0.8;
+}
+
+.timing-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.timing-list li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.timing-day {
+    font-weight: 500;
+}
+
+.timing-hours {
+    opacity: 0.9;
+}
+
+.quick-actions {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.quick-action {
+    flex: 1;
+    min-width: 120px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.quick-action:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    color: white;
+}
+
+.quick-action i {
+    display: block;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.directions-btn {
+    width: 100%;
+    padding: 1rem 2rem;
+    background: white;
+    color: var(--secondary-blue);
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.directions-btn:hover {
+    background: #f1f5f9;
+    transform: translateY(-2px);
+}
+
+.directions-btn i {
+    margin-right: 0.5rem;
+}
+
+.map-container {
+    height: 100%;
+    min-height: 500px;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 0;
+}
+
+/* Contact Form Section */
+.contact-form-section {
+    padding: 80px 0;
+    background: var(--white);
+}
+
+.form-card {
+    background: white;
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); /* Specific shadow */
+    border: 1px solid #e2e8f0;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--text-dark); /* Using variable here */
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.form-control-contact { /* Renamed to avoid conflict if global form-control exists */
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f9fafb;
+}
+
+.form-control-contact:focus {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    background: white;
+    outline: none;
+}
+
+.form-control-contact.is-invalid {
+    border-color: #ef4444;
+}
+
+.invalid-feedback {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, var(--secondary-blue) 0%, var(--primary-blue) 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+.btn-loading .spinner-border {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+}
+
+/* FAQ Section */
+.faq-section-contact { /* Added specific class for FAQ section */
+    padding: 80px 0;
+    background: var(--bg-light);
+}
+
+.accordion-item {
+    border: none;
+    margin-bottom: 1rem;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow-light);
+}
+
+.accordion-button {
+    background: white;
+    border: none;
+    padding: 1.5rem 2rem;
+    font-weight: 600;
+    color: var(--text-dark); /* Using variable */
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.accordion-button:not(.collapsed) {
+    background: linear-gradient(135deg, var(--secondary-blue) 0%, var(--primary-blue) 100%);
+    color: white;
+    box-shadow: none;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+    border: none;
+}
+
+.accordion-body {
+    padding: 1.5rem 2rem;
+    background: white;
+    color: var(--text-light); /* Using variable */
+    line-height: 1.6;
+}
+
+/* Responsive Design (Contact specific) */
+@media (max-width: 768px) {
+    .contact-hero {
+        padding: 100px 0 60px;
+    }
+    
+    .location-info {
+        padding: 2rem;
+    }
+    
+    .form-card {
+        padding: 2rem;
+    }
+    
+    .quick-actions {
+        flex-direction: column;
+    }
+    
+    .quick-action {
+        min-width: auto;
+    }
+    
+    .map-container {
+        min-height: 300px;
+    }
+}
+
+.navbar
+
+ {
+    min-height: 100px !important;
+    padding: 1rem 0 !important;
+        padding: 1rem 0;
+}</style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://placehold.co/40x40/2563eb/ffffff?text=SOF" alt="Shield of Faith Logo" width="40" height="40">
+                Shield of Faith
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us & History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="join.html">Join Us & Volunteer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="contact.html">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="contact-hero">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h1 class="display-3 fw-bold mb-4">Get In Touch With The Shield of Faith</h1>
+                    <p class="lead fs-4">We're here to answer your questions, receive prayer requests, and connect with you.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Information Section -->
+<section class="contact-location-section">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <h2 class="section-title">Visit Our Location</h2>
+                    <p class="section-subtitle">Find us at Shield of Faith Samaj Kendra in the heart of Vasai</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="location-container">
+                        <div class="row g-0">
+                            <!-- Location Information -->
+                            <div class="col-lg-5">
+                                <div class="location-info h-100">
+                                    <div class="location-header">
+                                        <div class="location-icon">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </div>
+                                        <div>
+                                            <h3>Find Us Here</h3>
+                                            <p class="mb-0">Shield of Faith Samaj Kendra</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Address -->
+                                    <div class="info-item">
+                                        <div class="info-icon">
+                                            <i class="fas fa-building"></i>
+                                        </div>
+                                        <div class="info-content">
+                                            <h5>Our Address</h5>
+                                            <p>Shield of Faith Samaj Kendra<br>
+                                               Bhuigaon, Vasai West<br>
+                                               Maharashtra 401202, India</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Contact Numbers -->
+                                    <div class="info-item">
+                                        <div class="info-icon">
+                                            <i class="fas fa-phone"></i>
+                                        </div>
+                                        <div class="info-content">
+                                            <h5>Contact Numbers</h5>
+                                            <p>
+                                                <a href="tel:+919860701798">+91 98607 01798</a><br>
+                                                <a href="tel:+918669119045">+91 86691 19045</a>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Email -->
+                                    <div class="info-item">
+                                        <div class="info-icon">
+                                            <i class="fas fa-envelope"></i>
+                                        </div>
+                                        <div class="info-content">
+                                            <h5>Email Address</h5>
+                                            <p><a href="mailto:info@shieldoffaithvasai.org">info@shieldoffaithvasai.org</a></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Office Hours -->
+                                    <div class="info-item">
+                                        <div class="info-icon">
+                                            <i class="fas fa-clock"></i>
+                                        </div>
+                                        <div class="info-content">
+                                            <h5>Office Hours</h5>
+                                            <ul class="timing-list">
+                                                <li>
+                                                    <span class="timing-day">Monday - Friday</span>
+                                                    <span class="timing-hours">9:00 AM - 5:00 PM</span>
+                                                </li>
+                                                <li>
+                                                    <span class="timing-day">Saturday</span>
+                                                    <span class="timing-hours">9:00 AM - 2:00 PM</span>
+                                                </li>
+                                                <li>
+                                                    <span class="timing-day">Sunday</span>
+                                                    <span class="timing-hours">After Mass</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Quick Actions -->
+                                    <div class="quick-actions">
+                                        <a href="https://wa.me/919860701798" class="quick-action" target="_blank">
+                                            <i class="fab fa-whatsapp"></i>
+                                            <span>WhatsApp</span>
+                                        </a>
+                                        <a href="tel:+919860701798" class="quick-action">
+                                            <i class="fas fa-phone"></i>
+                                            <span>Call Now</span>
+                                        </a>
+                                        <a href="mailto:info@shieldoffaithvasai.org" class="quick-action">
+                                            <i class="fas fa-envelope"></i>
+                                            <span>Email Us</span>
+                                        </a>
+                                    </div>
+
+                                    <!-- Get Directions Button -->
+                                    <button class="directions-btn" onclick="openGoogleMaps()">
+                                        <i class="fas fa-directions"></i>
+                                        Get Directions
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Map -->
+                            <div class="col-lg-7">
+                                <div class="map-container">
+                                    <iframe 
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3767.8629468471473!2d72.77983687520744!3d19.385848181973895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7ad0001cba379%3A0x58d100bb1bef9175!2sShield%20of%20Faith%20Samaj%20Kendra!5e0!3m2!1sen!2sin!4v1703123456789!5m2!1sen!2sin"
+                                        allowfullscreen 
+                                        loading="lazy" 
+                                        referrerpolicy="no-referrer-when-downgrade"
+                                        title="Shield of Faith Samaj Kendra Location">
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact Form Section -->
+    <section class="contact-form-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="form-card">
+                        <div class="text-center mb-4">
+                            <h2 class="section-title mb-3">Send Us a Message</h2>
+                            <p class="text-muted">Share your prayer requests, questions, or messages with us</p>
+                        </div>
+
+                        <!-- Success/Error Messages -->
+                        <div id="form-messages"></div>
+
+                        <!-- Contact Form -->
+                        <form id="contactForm" novalidate>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name" class="form-label">Full Name *</label>
+                                        <input type="text" class="form-control" id="name" name="entry.123456789" required>
+                                        <div class="invalid-feedback">Please enter your full name.</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email" class="form-label">Email Address *</label>
+                                        <input type="email" class="form-control" id="email" name="entry.987654321" required>
+                                        <div class="invalid-feedback">Please enter a valid email address.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="subject" class="form-label">Subject *</label>
+                                <input type="text" class="form-control" id="subject" name="entry.456789123" required>
+                                <div class="invalid-feedback">Please enter a subject for your message.</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message" class="form-label">Message *</label>
+                                <textarea class="form-control" id="message" name="entry.789123456" rows="6" required></textarea>
+                                <div class="invalid-feedback">Please enter your message.</div>
+                            </div>
+
+                            <button type="submit" class="submit-btn">
+                                <span class="btn-text">
+                                    <i class="fas fa-paper-plane"></i>
+                                    Send Message
+                                </span>
+                                <span class="btn-loading d-none">
+                                    <span class="spinner-border" role="status" aria-hidden="true"></span>
+                                    Sending...
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="text-center mb-5">
+                        <h2 class="section-title">Frequently Asked Questions</h2>
+                        <p class="section-subtitle">Quick answers to common questions about our community</p>
+                    </div>
+
+                    <div class="accordion" id="faqAccordion">
+                        <!-- FAQ Item 1 -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    Is The Shield of Faith Community a Catholic organization?
+                                </button>
+                            </h3>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Yes, we are proudly affiliated with the Vasai Diocese and are a Catholic faith community. We welcome all who seek to grow in their relationship with God and serve others in love.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 2 -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    How can I join the community?
+                                </button>
+                            </h3>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Visit our Join Us & Volunteer page for detailed information about membership and our various ministries. You can also contact us directly via WhatsApp or email for guidance on how to get involved.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 3 -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    Are your online prayer sessions open to everyone?
+                                </button>
+                            </h3>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Absolutely! All are welcome to join our weekly online intercessory prayer sessions. We believe in the power of community prayer and invite everyone to participate, regardless of their background or denomination.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 4 -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                    How can I volunteer my time?
+                                </button>
+                            </h3>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    We have numerous volunteer opportunities available! Visit our Join Us & Volunteer page to explore different ways to serve, from community outreach to youth ministry. You can also fill out our volunteer application form online.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 5 -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                    What is the Josodi Cross?
+                                </button>
+                            </h3>
+                            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    The Josodi Cross is a revered historical monument erected in 1891, serving as a symbol of enduring faith in Vasai. It represents our community's deep roots and spiritual heritage. You can learn more about its history and significance on our About Us page.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+     <footer class="footer">
+        <div class="footer-main">
+            <div class="container">
+                <!-- Footer Brand -->
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="https://placehold.co/50x50/2563eb/ffffff?text=✝" alt="Shield of Faith Logo">
+                        <h2>The Shield of Faith</h2>
+                    </div>
+                    <p class="footer-tagline">
+                        Nurturing souls, strengthening faith, and building community in Christ's love since 1891
+                    </p>
+                </div>
+
+                <!-- Footer Content -->
+                <div class="footer-content">
+                    <!-- Quick Links -->
+                  <div class="footer-section">
+                        <h3>Quick Links</h3>
+                        <ul class="footer-links">
+                            <li><a href="about.html"><i class="fas fa-chevron-right"></i>About Us</a></li>
+                            <li><a href="events.html"><i class="fas fa-chevron-right"></i>Events</a></li>
+                            <li><a href="join.html"><i class="fas fa-chevron-right"></i>Join Us</a></li>
+                            <li><a href="admin_login.html"><i class="fas fa-chevron-right"></i>Admin</a></li>
+                            <li><a href="#donate"><i class="fas fa-chevron-right"></i>Support Us</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="footer-section">
+                        <h3>Contact Us</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div>
+                                    <strong>Address</strong><br>
+                                    Vasai Diocese, Maharashtra, India
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <strong>Phone</strong><br>
+                                    <a href="tel:+91-9876543210">+91 98765 43210</a>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <strong>Email</strong><br>
+                                    <a href="mailto:info@shieldoffaith.org">info@shieldoffaith.org</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mass Schedule -->
+                    <div class="footer-section">
+                        <h3>Mass Schedule</h3>
+                        <div class="mass-schedule">
+                            <div class="mass-times">
+                                <div class="mass-time">
+                                    <span><strong>Sunday</strong></span>
+                                    <span>9:00 AM</span>
+                                </div>
+                                <div class="mass-time">
+                                    <span><strong>Wednesday</strong></span>
+                                    <span>7:00 PM</span>
+                                </div>
+                                <div class="mass-time">
+                                    <span><strong>Saturday</strong></span>
+                                    <span>6:30 PM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Diocese Information -->
+                    <div class="footer-section">
+                        <h3>Diocese Information</h3>
+                        <ul class="footer-links">
+                            <li><a href="#"><i class="fas fa-user-tie"></i>Bishop Thomas Dabre</a></li>
+                            <li><a href="#"><i class="fas fa-church"></i>Vasai Diocese</a></li>
+                            <li><a href="#"><i class="fas fa-calendar-alt"></i>Established 1891</a></li>
+                            <li><a href="#"><i class="fas fa-book-open"></i>Parish Directory</a></li>
+                            <li><a href="#"><i class="fas fa-newspaper"></i>Diocese News</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Social Media Section -->
+                <div class="social-section">
+                    <h3 style="color: white; font-family: 'Playfair Display', serif; margin-bottom: 1rem;">Connect With Us</h3>
+                    <p style="color: #94a3b8; margin-bottom: 1rem;">Join our community online and stay updated with our latest activities</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <div class="footer-left">
+                        <p>&copy; 2024 The Shield of Faith Community, Vasai Diocese. All rights reserved.</p>
+                        <p class="designer-credit">
+                            Designed by <a href="hthttp://rickyrodrigues.me/portfolio/" target="_blank" rel="noopener noreferrer" class="designer-link">Ricky Rodrigues</a>
+                        </p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="#">Privacy Policy</a> | 
+                        <a href="#">Terms of Service</a> | 
+                        <a href="#">Site Map</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>// Enhanced Contact Form Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contactForm');
+    const formMessages = document.getElementById('form-messages');
+    const submitBtn = contactForm.querySelector('.submit-btn');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const btnLoading = submitBtn.querySelector('.btn-loading');
+
+    // ** Your Google Apps Script Web App URL **
+    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyE8AQlK5oPR2YOcSjCdhce1QKEUE-6AQMcmhwpWtWkzJR8xnYbmVDL3to1RnZ_7MwL/exec';
+
+    // Form validation
+    function validateForm() {
+        let isValid = true;
+        const requiredFields = contactForm.querySelectorAll('[required]');
+
+        requiredFields.forEach(field => {
+            const value = field.value.trim();
+
+            // Remove existing validation classes
+            field.classList.remove('is-valid', 'is-invalid');
+
+            if (!value) {
+                field.classList.add('is-invalid');
+                isValid = false;
+            } else if (field.type === 'email' && !isValidEmail(value)) {
+                field.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                field.classList.add('is-valid');
+            }
+        });
+
+        return isValid;
+    }
+
+    // Email validation
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    // Show message
+    function showMessage(message, type = 'success') {
+        const alertClass = type === 'success' ? 'alert-success' : 'alert-danger';
+        const iconClass = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+
+        formMessages.innerHTML = `
+            <div class="alert ${alertClass} alert-dismissible fade show" role="alert">
+                <i class="fas ${iconClass} me-2"></i>
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        `;
+
+        // Auto-dismiss after 5 seconds
+        setTimeout(() => {
+            const alert = formMessages.querySelector('.alert');
+            if (alert) {
+                if (typeof bootstrap !== 'undefined' && bootstrap.Alert) {
+                     const bsAlert = new bootstrap.Alert(alert);
+                     bsAlert.close();
+                } else {
+                    alert.remove();
+                }
+            }
+        }, 5000);
+
+        // Scroll to message
+        formMessages.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Toggle loading state
+    function toggleLoading(isLoading) {
+        if (isLoading) {
+            btnText.classList.add('d-none');
+            btnLoading.classList.remove('d-none');
+            submitBtn.disabled = true;
+        } else {
+            btnText.classList.remove('d-none');
+            btnLoading.classList.add('d-none');
+            submitBtn.disabled = false;
+        }
+    }
+
+    // Handle form submission - UPDATED METHOD
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Clear previous messages
+        formMessages.innerHTML = '';
+
+        // Validate form
+        if (!validateForm()) {
+            showMessage('Please fill in all required fields correctly.', 'error');
+            return;
+        }
+
+        // Show loading state
+        toggleLoading(true);
+
+        // Method 1: Try with FormData first
+        const formData = new FormData(contactForm);
+        
+        // Log what we're sending for debugging
+        console.log('Sending form data:');
+        for (let [key, value] of formData.entries()) {
+            console.log(key + ': ' + value);
+        }
+
+        fetch(WEB_APP_URL, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            console.log('Response status:', response.status);
+            console.log('Response headers:', response.headers);
+            return response.text(); // Get as text first to see what we receive
+        })
+        .then(responseText => {
+            console.log('Raw response:', responseText);
+            
+            try {
+                const result = JSON.parse(responseText);
+                console.log('Parsed response:', result);
+                
+                if (result.result === 'success') {
+                    showMessage('Thank you for your message! We\'ll get back to you soon.');
+                    contactForm.reset();
+                    contactForm.querySelectorAll('.form-control').forEach(field => {
+                        field.classList.remove('is-valid', 'is-invalid');
+                    });
+                } else {
+                    showMessage('Sorry, there was an error: ' + result.message, 'error');
+                }
+            } catch (parseError) {
+                console.error('Error parsing JSON:', parseError);
+                console.log('Trying alternative method...');
+                
+                // Method 2: Try with URL-encoded data as fallback
+                submitWithUrlEncoded();
+                return;
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+            console.log('Trying alternative method...');
+            
+            // Method 2: Try with URL-encoded data as fallback
+            submitWithUrlEncoded();
+        })
+        .finally(() => {
+            toggleLoading(false);
+        });
+    });
+
+    // Alternative submission method with URL-encoded data
+    function submitWithUrlEncoded() {
+        const formData = new FormData(contactForm);
+        const urlEncodedData = new URLSearchParams();
+        
+        // Convert FormData to URLSearchParams
+        for (let [key, value] of formData.entries()) {
+            urlEncodedData.append(key, value);
+        }
+        
+        console.log('Trying URL-encoded submission:', urlEncodedData.toString());
+        
+        fetch(WEB_APP_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: urlEncodedData.toString()
+        })
+        .then(response => response.text())
+        .then(responseText => {
+            console.log('URL-encoded response:', responseText);
+            
+            try {
+                const result = JSON.parse(responseText);
+                
+                if (result.result === 'success') {
+                    showMessage('Thank you for your message! We\'ll get back to you soon.');
+                    contactForm.reset();
+                    contactForm.querySelectorAll('.form-control').forEach(field => {
+                        field.classList.remove('is-valid', 'is-invalid');
+                    });
+                } else {
+                    showMessage('Sorry, there was an error: ' + result.message, 'error');
+                }
+            } catch (parseError) {
+                console.error('Still cannot parse response');
+                showMessage('There was a problem processing your request. Please try again.', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('URL-encoded submission error:', error);
+            showMessage('Sorry, there was a network error. Please try again.', 'error');
+        });
+    }
+
+    // Real-time validation (same as before)
+    const formFields = contactForm.querySelectorAll('.form-control');
+    formFields.forEach(field => {
+        field.addEventListener('blur', function() {
+            if (this.hasAttribute('required') && this.value.trim()) {
+                if (this.type === 'email' && !isValidEmail(this.value.trim())) {
+                    this.classList.add('is-invalid');
+                    this.classList.remove('is-valid');
+                } else {
+                    this.classList.add('is-valid');
+                    this.classList.remove('is-invalid');
+                }
+            }
+        });
+
+        field.addEventListener('input', function() {
+            if (this.classList.contains('is-invalid') || this.classList.contains('is-valid')) {
+                if (this.value.trim()) {
+                    if (this.type === 'email' && !isValidEmail(this.value.trim())) {
+                        this.classList.add('is-invalid');
+                        this.classList.remove('is-valid');
+                    } else {
+                        this.classList.add('is-valid');
+                        this.classList.remove('is-invalid');
+                    }
+                } else {
+                    this.classList.remove('is-valid', 'is-invalid');
+                }
+            }
+        });
+    });
+});
+// Enhanced Google Maps functionality
+function openGoogleMaps() {
+    const address = "Shield of Faith Samaj Kendra, Bhuigaon, Vasai West, Maharashtra 401202, India";
+    const encodedAddress = encodeURIComponent(address);
+    
+    // Try to detect if user is on mobile
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    let url;
+    if (isMobile) {
+        // Use mobile-specific URLs for better app integration
+        if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            // iOS - try to open in Apple Maps first, fallback to Google Maps
+            url = `maps://maps.google.com/maps?daddr=${encodedAddress}`;
+        } else {
+            // Android - open in Google Maps app
+            url = `google.navigation:q=${encodedAddress}`;
+        }
+    } else {
+        // Desktop - use web version
+        url = `https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`;
+    }
+    
+    // Open the URL
+    const newWindow = window.open(url, '_blank');
+    
+    // Fallback for mobile browsers that don't support app URLs
+    if (isMobile) {
+        setTimeout(() => {
+            if (!newWindow || newWindow.closed) {
+                // Fallback to web version
+                window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`, '_blank');
+            }
+        }, 1000);
+    }
+    
+    // Add visual feedback to button
+    const directionsBtn = document.querySelector('.directions-btn');
+    if (directionsBtn) {
+        const originalContent = directionsBtn.innerHTML;
+        directionsBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Opening Maps...';
+        directionsBtn.disabled = true;
+        
+        setTimeout(() => {
+            directionsBtn.innerHTML = originalContent;
+            directionsBtn.disabled = false;
+        }, 2000);
+    }
+}
+
+// Copy to clipboard functionality with enhanced feedback
+function copyToClipboard(text, element) {
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(function() {
+            showCopyFeedback(element, true);
+        }).catch(function(err) {
+            console.error('Could not copy text: ', err);
+            showCopyFeedback(element, false);
+        });
+    } else {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+            document.execCommand('copy');
+            showCopyFeedback(element, true);
+        } catch (err) {
+            console.error('Could not copy text: ', err);
+            showCopyFeedback(element, false);
+        }
+        
+        document.body.removeChild(textArea);
+    }
+}
+
+function showCopyFeedback(element, success) {
+    const originalContent = element.innerHTML;
+    const originalColor = element.style.color;
+    
+    if (success) {
+        element.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        element.style.color = '#10b981';
+    } else {
+        element.innerHTML = '<i class="fas fa-times"></i> Copy failed';
+        element.style.color = '#ef4444';
+    }
+    
+    setTimeout(() => {
+        element.innerHTML = originalContent;
+        element.style.color = originalColor;
+    }, 2000);
+}
+
+// Enhanced contact interaction tracking
+document.addEventListener('DOMContentLoaded', function() {
+    // Track quick actions
+    const quickActions = document.querySelectorAll('.quick-action');
+    quickActions.forEach(action => {
+        action.addEventListener('click', function(e) {
+            const actionType = this.querySelector('span').textContent.trim();
+            
+            // Add visual feedback
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+            
+            // Log interaction (replace with your analytics)
+            console.log(`Quick action clicked: ${actionType}`);
+            
+            // Optional: Send to analytics
+            // gtag('event', 'contact_action', {
+            //     'action_type': actionType
+            // });
+        });
+    });
+    
+    // Add double-click to copy for contact details
+    const contactLinks = document.querySelectorAll('a[href^="tel:"], a[href^="mailto:"]');
+    contactLinks.forEach(link => {
+        link.addEventListener('dblclick', function(e) {
+            e.preventDefault();
+            const text = this.textContent.trim();
+            copyToClipboard(text, this);
+        });
+        
+        // Add tooltip for copy functionality
+        link.setAttribute('title', 'Double-click to copy');
+        link.style.cursor = 'pointer';
+    });
+    
+    // Enhanced map interaction
+    const mapIframe = document.querySelector('.map-container iframe');
+    if (mapIframe) {
+        mapIframe.addEventListener('load', function() {
+            console.log('Map loaded successfully');
+        });
+        
+        mapIframe.addEventListener('error', function() {
+            console.error('Failed to load map');
+            // You could show a fallback image or error message here
+        });
+    }
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+});
+
+// FAQ accordion enhancements
+document.addEventListener('DOMContentLoaded', function() {
+    const accordionButtons = document.querySelectorAll('.accordion-button');
+    
+    accordionButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Log FAQ interaction
+            const faqTitle = this.textContent.trim();
+            console.log(`FAQ clicked: ${faqTitle}`);
+        });
+    });
+}); </script>
+    </body>
+</html>

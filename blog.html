@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shield of Faith - Blog</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>/* Page-specific styles for blog.html */
+
+/* Blog Hero Section */
+.blog-hero {
+    background: linear-gradient(135deg,
+        rgba(37, 99, 235, 0.9) 0%,
+        rgba(30, 64, 175, 0.8) 50%,
+        rgba(59, 130, 246, 0.7) 100%),
+        url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    padding: 120px 0 80px;
+    text-align: center;
+    color: white;
+    position: relative;
+}
+
+/* Blog Post Cards */
+.blog-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Consider using var(--shadow-light) */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    background-color: var(--white); /* Using global variable */
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Consider using var(--shadow-medium) */
+}
+
+.blog-card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.card-body {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    font-size: 1.35rem;
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+    color: var(--text-dark); /* Using global variable */
+}
+
+.card-meta {
+    font-size: 0.875rem;
+    color: var(--text-light); /* Using global variable */
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.card-meta span {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+.card-meta i {
+    margin-right: 0.3rem;
+    color: var(--primary-blue); /* Using global variable */
+}
+
+.card-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-light); /* Using global variable */
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+/* Loading and Empty States */
+#loading-message, .empty-state-message {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-light); /* Using global variable */
+    font-size: 1.1rem;
+}
+
+/* Modal Specific Styles */
+.modal-header-blog { /* Renamed for specificity */
+    border-bottom: 1px solid #dee2e6;
+    background-color: var(--primary-blue); /* Using global variable */
+    color: white;
+}
+
+.modal-header-blog .btn-close { /* Renamed for specificity */
+    filter: invert(1);
+}
+
+.modal-title-blog { /* Renamed for specificity */
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+}
+
+#modalBlogImage {
+    border-radius: 0.5rem;
+}
+
+.blog-full-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-dark); /* Using global variable */
+}
+
+.blog-full-content img {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-light); /* Using global variable */
+}
+
+/* Image Placeholder Styles */
+.image-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-blue); /* Using global variable */
+    color: #ffffff;
+    font-size: 4rem;
+    text-align: center;
+    overflow: hidden;
+    font-family: 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', 'Apple Color Emoji', 'Twemoji Mozilla', 'Cantarell Emoji', sans-serif;
+}
+
+.blog-card-img-placeholder {
+    width: 100%;
+    height: 200px;
+}
+
+.modal-blog-img-placeholder {
+    width: 100%;
+    height: 500px;
+}
+
+.image-placeholder.hidden,
+img.hidden {
+    display: none !important;
+}
+
+/* Blog Grid Layout */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+/* Admin Specific Styles */
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.blog-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* Responsive Adjustments for Blog */
+@media (max-width: 767px) {
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .admin-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .blog-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .card-meta {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .card-meta span {
+        margin-bottom: 0.5rem;
+        margin-right: 0 !important;
+    }
+
+}
+/* Preserve text formatting in blog content */
+.blog-content {
+    white-space: pre-wrap;
+    line-height: 1.6;
+    font-family: Georgia, serif;
+}
+
+.card-text {
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+
+/* Modal content formatting */
+#modalBlogContent {
+    white-space: pre-wrap;
+    line-height: 1.7;
+    font-family: Georgia, serif;
+    text-align: justify;
+}
+</style>
+</head>
+<body>
+    <div class="modal fade" id="blogDetailModal" tabindex="-1" aria-labelledby="blogDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="blogDetailModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="modalBlogImage" src="" alt="" class="img-fluid mb-3" style="max-height: 400px; width: 100%; object-fit: cover;">
+                    <p class="text-muted small">
+                        <span id="modalBlogAuthor"><i class="fas fa-user me-1"></i></span>
+                        <span class="ms-3" id="modalBlogDate"><i class="far fa-calendar-alt me-1"></i></span>
+                        <span class="ms-3" id="modalBlogCategory"><i class="fas fa-tag me-1"></i></span>
+                    </p>
+                    <div id="modalBlogContent" class="blog-full-content"></div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://placehold.co/40x40/2563eb/ffffff?text=SOF" alt="Shield of Faith Logo" width="40" height="40">
+                Shield of Faith
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us & History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="join.html">Join Us & Volunteer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="contact.html">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="blog-hero">
+        <div class="container">
+            <h1 class="hero-title">Faith Chronicles</h1>
+            <p class="hero-subtitle">Sharing God's Word and Community Stories</p>
+        </div>
+    </section>
+
+    <main class="section-padding">
+        <div class="container">
+            <section id="blog-posts-section" class="py-5">
+                <h2 class="text-center mb-4">Latest Blog Posts</h2>
+                <div id="blog-posts-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <div class="col-12 text-center text-muted" id="loading-message">Loading blog posts...</div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+  <footer class="footer">
+        <div class="footer-main">
+            <div class="container">
+                <!-- Footer Brand -->
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="https://placehold.co/50x50/2563eb/ffffff?text=✝" alt="Shield of Faith Logo">
+                        <h2>The Shield of Faith</h2>
+                    </div>
+                    <p class="footer-tagline">
+                        Nurturing souls, strengthening faith, and building community in Christ's love since 1891
+                    </p>
+                </div>
+
+                <!-- Footer Content -->
+                <div class="footer-content">
+                    <!-- Quick Links -->
+                  <div class="footer-section">
+                        <h3>Quick Links</h3>
+                        <ul class="footer-links">
+                            <li><a href="about.html"><i class="fas fa-chevron-right"></i>About Us</a></li>
+                            <li><a href="events.html"><i class="fas fa-chevron-right"></i>Events</a></li>
+                            <li><a href="join.html"><i class="fas fa-chevron-right"></i>Join Us</a></li>
+                            <li><a href="admin_login.html"><i class="fas fa-chevron-right"></i>Admin</a></li>
+                            <li><a href="#donate"><i class="fas fa-chevron-right"></i>Support Us</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="footer-section">
+                        <h3>Contact Us</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div>
+                                    <strong>Address</strong><br>
+                                    Vasai Diocese, Maharashtra, India
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <strong>Phone</strong><br>
+                                    <a href="tel:+91-9876543210">+91 98765 43210</a>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <strong>Email</strong><br>
+                                    <a href="mailto:info@shieldoffaith.org">info@shieldoffaith.org</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mass Schedule -->
+                    <div class="footer-section">
+                        <h3>Mass Schedule</h3>
+                        <div class="mass-schedule">
+                            <div class="mass-times">
+                                <div class="mass-time">
+                                    <span><strong>Sunday</strong></span>
+                                    <span>9:00 AM</span>
+                                </div>
+                                <div class="mass-time">
+                                    <span><strong>Wednesday</strong></span>
+                                    <span>7:00 PM</span>
+                                </div>
+                                <div class="mass-time">
+                                    <span><strong>Saturday</strong></span>
+                                    <span>6:30 PM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Diocese Information -->
+                    <div class="footer-section">
+                        <h3>Diocese Information</h3>
+                        <ul class="footer-links">
+                            <li><a href="#"><i class="fas fa-user-tie"></i>Bishop Thomas Dabre</a></li>
+                            <li><a href="#"><i class="fas fa-church"></i>Vasai Diocese</a></li>
+                            <li><a href="#"><i class="fas fa-calendar-alt"></i>Established 1891</a></li>
+                            <li><a href="#"><i class="fas fa-book-open"></i>Parish Directory</a></li>
+                            <li><a href="#"><i class="fas fa-newspaper"></i>Diocese News</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Social Media Section -->
+                <div class="social-section">
+                    <h3 style="color: white; font-family: 'Playfair Display', serif; margin-bottom: 1rem;">Connect With Us</h3>
+                    <p style="color: #94a3b8; margin-bottom: 1rem;">Join our community online and stay updated with our latest activities</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <div class="footer-left">
+                        <p>&copy; 2024 The Shield of Faith Community, Vasai Diocese. All rights reserved.</p>
+                        <p class="designer-credit">
+                            Designed by <a href="hthttp://rickyrodrigues.me/portfolio/" target="_blank" rel="noopener noreferrer" class="designer-link">Ricky Rodrigues</a>
+                        </p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="#">Privacy Policy</a> | 
+                        <a href="#">Terms of Service</a> | 
+                        <a href="#">Site Map</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="js/blog.js"></script>
+</body>
+</html>

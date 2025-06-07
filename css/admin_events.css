@@ -1,0 +1,140 @@
+/* Admin Events Page Specific Styles */
+/* These styles are unique to the admin_events.html page */
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f3f4f6; /* Light gray background */
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align content to the top */
+    align-items: center;
+    padding: 20px;
+    padding-top: 100px; /* Adjust based on your fixed navbar height */
+}
+
+.admin-container {
+    background-color: var(--white); /* Using global variable */
+    padding: 2.5rem;
+    border-radius: 1rem;
+    box-shadow: var(--shadow-medium); /* Using global variable */
+    width: 100%;
+    max-width: 900px; /* Increased max-width for better layout */
+    margin-top: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-dark); /* Using global variable */
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db; /* Consider adding a variable for border color */
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-blue); /* Using global variable */
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2); /* Using primary blue color */
+}
+
+/* Custom buttons (reusing global btn-primary, btn-warning, btn-danger) */
+/* The styles for .btn-primary, .btn-warning, .btn-danger should be in global.css */
+/* If they are only used here, they can stay, but given the name, they should be global. */
+/* For now, assuming they are general purpose and might be in global.css */
+
+.alert-message {
+    background-color: #fef2f2; /* Light red background for alerts */
+    color: #ef4444; /* Red text for alerts */
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    text-align: left;
+}
+
+/* Modal Specific Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: var(--white); /* Using global variable */
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.show .modal-content {
+    transform: translateY(0);
+}
+
+.modal-content h3 {
+    margin-bottom: 1.5rem;
+    color: var(--text-dark); /* Using global variable */
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+/* Admin Event Cards (assuming .event-card comes from events.css or global.css if shared) */
+/* If event-card is specific to the public events page, you might need a new class like .admin-event-card */
+/* For now, assuming it's imported and these are overrides for admin context */
+.admin-event-cards .event-card-body {
+    flex-grow: 1; /* Allow body to take available space */
+    padding-bottom: 1rem; /* Add padding back to body content */
+}
+
+.admin-event-actions {
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+    background-color: #f9fafb; /* Light background for actions */
+    border-top: 1px solid #e5e7eb; /* Border for separation */
+    gap: 0.5rem;
+}
+
+.admin-event-actions button {
+    flex: 1; /* Make buttons fill available space */
+}
