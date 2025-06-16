@@ -7,10 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        /* Your existing CSS styles go here, ensuring email/password input are styled correctly */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6; /* Light gray background */
+            background-color: #f3f4f6;
             color: #333;
             min-height: 100vh;
             display: flex;
@@ -32,7 +31,7 @@
 
         .form-group {
             margin-bottom: 1.5rem;
-            text-align: left; /* Align labels left */
+            text-align: left;
         }
 
         .form-group label {
@@ -66,11 +65,16 @@
             transition: background-color 0.2s;
             cursor: pointer;
             border: none;
-            width: 100%; /* Make button full width */
+            width: 100%;
         }
 
         .btn-primary:hover {
             background-color: #1e40af;
+        }
+
+        .btn-primary:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
         }
 
         .alert-message {
@@ -80,7 +84,21 @@
             border-radius: 0.5rem;
             margin-top: 1rem;
             text-align: left;
-            display: none; /* Hidden by default */
+            display: none;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -88,7 +106,8 @@
 
     <div id="loginContainer" class="login-container">
         <h2 class="text-3xl font-bold mb-6 text-gray-800">Admin Login</h2>
-        <form id="loginForm"> <div class="form-group">
+        <form id="loginForm">
+            <div class="form-group">
                 <label for="adminEmail" class="text-lg">Email:</label>
                 <input type="email" id="adminEmail" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" required>
             </div>
@@ -96,88 +115,174 @@
                 <label for="adminPassword" class="text-lg">Password:</label>
                 <input type="password" id="adminPassword" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" required>
             </div>
-            <button type="submit" id="loginBtn" class="btn-primary w-full py-3 text-lg rounded-full shadow-md">Login</button>
+            <button type="submit" id="loginBtn" class="btn-primary w-full py-3 text-lg rounded-full shadow-md">
+                <span id="loginBtnText">Login</span>
+                <span id="loginSpinner" class="loading-spinner" style="display: none;"></span>
+            </button>
             <p id="loginError" class="alert-message text-red-600 mt-4"></p>
         </form>
-        </div>
+        
+        <!-- Logout button for testing (only shows if already logged in) -->
+        <button id="logoutBtn" class="btn-primary mt-4" style="display: none; background-color: #dc2626;">
+            Logout Current User
+        </button>
+    </div>
 
     <script type="module">
-        // 1. YOUR FIREBASE CONFIGURATION (Replace with your actual values from Firebase Console -> Project settings -> Your apps)
-const firebaseConfig = {
-    apiKey: "AIzaSyBf5-lQmRvILKxXdTFIHthQPhMGTo_oSxo", // Your actual API Key
-    authDomain: "shieldoffaithdemo.firebaseapp.com",
-    projectId: "shieldoffaithdemo",
-    storageBucket: "shieldoffaithdemo.firebasestorage.app",
-    messagingSenderId: "353881791273",
-    appId: "1:353881791273:web:4a74f00bc0fa8f190c7538",
-    measurementId: "G-7X1S6JZG61"
-};
-        // 2. Firebase SDK Imports (Ensure these URLs are correct for your Firebase version, 9.6.1 is used here)
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBf5-lQmRvILKxXdTFIHthQPhMGTo_oSxo",
+            authDomain: "shieldoffaithdemo.firebaseapp.com", 
+            projectId: "shieldoffaithdemo",
+            storageBucket: "shieldoffaithdemo.firebasestorage.app",
+            messagingSenderId: "353881791273",
+            appId: "1:353881791273:web:4a74f00bc0fa8f190c7538",
+            measurementId: "G-7X1S6JZG61"
+        };
+
+        // Firebase SDK Imports
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
-        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
 
-        // 3. Initialize Firebase
+        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app); // Get the Firebase Authentication service instance
+        const auth = getAuth(app);
 
-        // 4. Get DOM Elements (Updated for email input)
+        // Get DOM Elements
         const loginForm = document.getElementById('loginForm');
         const adminEmailInput = document.getElementById('adminEmail');
         const adminPasswordInput = document.getElementById('adminPassword');
         const loginError = document.getElementById('loginError');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginBtnText = document.getElementById('loginBtnText');
+        const loginSpinner = document.getElementById('loginSpinner');
+        const logoutBtn = document.getElementById('logoutBtn');
 
-        // 5. Check Authentication State on Page Load (for auto-redirect if already logged in)
-        // This listener will fire immediately to check if a user is already authenticated.
+        let isLoading = false;
+
+        // Function to show loading state
+        function setLoading(loading) {
+            isLoading = loading;
+            loginBtn.disabled = loading;
+            if (loading) {
+                loginBtnText.style.display = 'none';
+                loginSpinner.style.display = 'inline-block';
+            } else {
+                loginBtnText.style.display = 'inline';
+                loginSpinner.style.display = 'none';
+            }
+        }
+
+        // Function to hide error message
+        function hideError() {
+            loginError.style.display = 'none';
+            loginError.textContent = '';
+        }
+
+        // Function to show error message
+        function showError(message) {
+            loginError.textContent = message;
+            loginError.style.display = 'block';
+        }
+
+        // Function to redirect to admin blog
+        function redirectToAdminBlog() {
+            console.log("Redirecting to admin_blog.html");
+            localStorage.setItem('adminLoggedIn', 'true');
+            window.location.href = 'admin_blog.html';
+        }
+
+        // Check Authentication State on Page Load
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // If a user object exists, it means they are signed in
-                console.log("Already signed in as:", user.email);
-                localStorage.setItem('adminLoggedIn', 'true'); // Keep client-side flag consistent
-                window.location.href = 'admin_events.html'; // Redirect to your main admin page
+                console.log("User already signed in:", user.email);
+                // Show logout button for testing
+                logoutBtn.style.display = 'block';
+                // Comment out the automatic redirect to allow manual testing
+                // redirectToAdminBlog();
             } else {
-                // No user is signed in, display the login form
-                console.log("No user signed in. Displaying login form.");
-                loginError.style.display = 'none'; // Ensure error message is hidden initially
+                console.log("No user signed in");
+                logoutBtn.style.display = 'none';
+                localStorage.removeItem('adminLoggedIn');
             }
         });
 
-        // 6. Handle Login Form Submission
+        // Handle Login Form Submission
         loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Prevent the browser's default form submission (important!)
-            loginError.style.display = 'none'; // Hide any previous error message
+            e.preventDefault();
+            
+            if (isLoading) return; // Prevent multiple submissions
+            
+            hideError();
+            setLoading(true);
 
-            const email = adminEmailInput.value;
+            const email = adminEmailInput.value.trim();
             const password = adminPasswordInput.value;
 
+            // Basic validation
+            if (!email || !password) {
+                showError('Please enter both email and password.');
+                setLoading(false);
+                return;
+            }
+
             try {
-                // *** THIS IS THE CORE FIREBASE AUTHENTICATION CALL ***
-                // It sends the email and password to Firebase for verification
+                console.log("Attempting to sign in with:", email);
+                
+                // Sign in with Firebase
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
                 console.log("Successfully logged in user:", userCredential.user.email);
-
-                // If Firebase successfully authenticates, then proceed:
-                localStorage.setItem('adminLoggedIn', 'true'); // Set client-side flag (for quick redirect)
-                window.location.href = 'admin.html'; // Redirect to your main admin page
+                
+                // Clear form
+                adminEmailInput.value = '';
+                adminPasswordInput.value = '';
+                
+                // Redirect to admin blog
+                redirectToAdminBlog();
+                
             } catch (error) {
-                // Handle errors returned by Firebase Authentication
                 console.error("Login failed:", error.code, error.message);
-                loginError.textContent = `Login failed: ${error.message}`;
-                loginError.style.display = 'block';
-                adminPasswordInput.value = ''; // Clear the password field for security
-
-                // Provide user-friendly messages for common Firebase Auth errors
-                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-                    loginError.textContent = 'Invalid email or password.';
-                } else if (error.code === 'auth/invalid-email') {
-                    loginError.textContent = 'Please enter a valid email address.';
-                } else {
-                    loginError.textContent = 'An unexpected error occurred. Please try again.';
+                setLoading(false);
+                
+                // Handle specific Firebase Auth errors
+                switch (error.code) {
+                    case 'auth/user-not-found':
+                    case 'auth/wrong-password':
+                    case 'auth/invalid-login-credentials':
+                        showError('Invalid email or password. Please check your credentials.');
+                        break;
+                    case 'auth/invalid-email':
+                        showError('Please enter a valid email address.');
+                        break;
+                    case 'auth/too-many-requests':
+                        showError('Too many failed attempts. Please try again later.');
+                        break;
+                    case 'auth/network-request-failed':
+                        showError('Network error. Please check your connection.');
+                        break;
+                    default:
+                        showError('Login failed. Please try again.');
                 }
+                
+                // Clear password field for security
+                adminPasswordInput.value = '';
             }
         });
 
-        // The keypress listener for Enter is now handled by the form's 'submit' event listener
-        // because the input fields are inside a <form> and the button is type="submit".
+        // Logout button handler (for testing)
+        logoutBtn.addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+                console.log("User signed out successfully");
+                localStorage.removeItem('adminLoggedIn');
+                hideError();
+                adminEmailInput.value = '';
+                adminPasswordInput.value = '';
+            } catch (error) {
+                console.error("Logout failed:", error);
+                showError('Logout failed. Please try again.');
+            }
+        });
     </script>
 
 </body>

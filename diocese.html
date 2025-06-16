@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diocese of Vasai - Interactive Church Map</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Leaflet CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-blue: #2563eb;
+            --secondary-blue: #1e40af;
+            --accent-gold: #f59e0b;
+            --success-green: #059669;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-large: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--text-dark);
+        }
+
+        /* Navigation */
+        .navbar {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-blue) !important;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .navbar-nav .nav-link {
+            font-weight: 500;
+            color: var(--text-dark) !important;
+            margin: 0 0.5rem;
+            padding: 0.5rem 1rem !important;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-blue) !important;
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, 
+                rgba(37, 99, 235, 0.9) 0%, 
+                rgba(30, 64, 175, 0.8) 50%, 
+                rgba(59, 130, 246, 0.7) 100%),
+                url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin-top: -80px;
+            padding-top: 80px;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: white;
+            text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 2.5rem;
+        }
+
+        /* Buttons */
+        .btn-custom {
+            padding: 0.875rem 2rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-primary-custom {
+            background: var(--primary-blue);
+            color: white;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-primary-custom:hover {
+            background: var(--secondary-blue);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-large);
+            color: white;
+        }
+
+        /* Sections */
+        .section-padding {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--accent-gold);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+   
+        /* History Cards */
+        .history-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: var(--shadow-light);
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .history-card h4 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        /* Statistics */
+        .stats-section {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+ 
+
+       /* Map Section Container */
+        .map-section {
+            background: var(--bg-light);
+            padding: 2rem 0;
+        }
+
+        .map-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Map Container - Responsive sizing */
+        .map-container {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-large);
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 2rem;
+            /* Responsive heights */
+            height: 500px;
+        }
+
+        /* Map element */
+        #map {
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+            /* Fix mobile touch issues */
+            touch-action: none;
+        }
+
+        /* Fullscreen button */
+        .fullscreen-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-medium);
+            font-size: 16px;
+        }
+
+        .fullscreen-btn:hover {
+            background: var(--secondary-blue);
+            transform: scale(1.05);
+        }
+
+        .fullscreen-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Fullscreen styles */
+        .map-fullscreen {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            z-index: 9999 !important;
+            border-radius: 0 !important;
+            margin: 0 !important;
+        }
+
+        .map-fullscreen #map {
+            border-radius: 0 !important;
+        }
+
+        /* Info box styles */
+        .info-box {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-medium);
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .info-box.hidden {
+            opacity: 0.5;
+        }
+
+        .church-details h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--accent-gold);
+            padding-bottom: 0.5rem;
+        }
+
+        .detail-item {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border-radius: 0.5rem;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .detail-item strong {
+            color: var(--primary-blue);
+        }
+
+        .directions-btn {
+            display: inline-block;
+            background: var(--success-green);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .directions-btn:hover {
+            background: #047857;
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        /* Custom Leaflet Control Fixes */
+        .leaflet-control-zoom {
+            border: none !important;
+            border-radius: 8px !important;
+            box-shadow: var(--shadow-medium) !important;
+            overflow: hidden !important;
+        }
+
+        .leaflet-control-zoom a {
+            background: white !important;
+            color: var(--text-dark) !important;
+            border: none !important;
+            width: 36px !important;
+            height: 36px !important;
+            line-height: 36px !important;
+            font-size: 18px !important;
+            font-weight: bold !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .leaflet-control-zoom a:hover {
+            background: var(--primary-blue) !important;
+            color: white !important;
+        }
+
+        .leaflet-control-layers {
+            border-radius: 8px !important;
+            box-shadow: var(--shadow-medium) !important;
+            border: none !important;
+        }
+
+        /* Custom popup styles */
+        .leaflet-popup-content-wrapper {
+            border-radius: 10px !important;
+            box-shadow: var(--shadow-large) !important;
+        }
+
+        .church-popup h3 {
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            border-bottom: 2px solid var(--accent-gold);
+            padding-bottom: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .map-wrapper {
+                max-width: 95%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .map-container {
+                height: 400px;
+                margin-bottom: 1rem;
+            }
+            
+            .fullscreen-btn {
+                top: 8px;
+                right: 8px;
+                padding: 6px 8px;
+                font-size: 14px;
+            }
+            
+            .info-box {
+                padding: 1rem;
+            }
+            
+            /* Fix mobile scrolling issues */
+            .leaflet-container {
+                -webkit-tap-highlight-color: transparent;
+            }
+            
+            /* Mobile zoom controls */
+            .leaflet-control-zoom {
+                margin-right: 10px !important;
+                margin-top: 60px !important;
+            }
+            
+            .leaflet-control-layers {
+                margin-top: 10px !important;
+                margin-right: 10px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .map-container {
+                height: 350px;
+            }
+            
+            .leaflet-popup-content {
+                margin: 8px !important;
+                width: 200px !important;
+            }
+            
+            .church-popup h3 {
+                font-size: 16px;
+            }
+        }
+
+        /* Loading spinner */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--bg-light);
+            border-top: 4px solid var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Section styling */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .section-subtitle {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#hero">
+                <i class="fas fa-church"></i>
+                Diocese of Vasai
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#hero">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#history">History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#diocese">Diocese</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#map">Church Map</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1 class="hero-title">Exploring the Catholic Diocese of Vasai</h1>
+                    <p class="hero-subtitle">
+                        Discover our vibrant faith community through an interactive journey of churches, 
+                        rich history, and spiritual heritage spanning across the beautiful region of Palghar district.
+                    </p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="#map" class="btn btn-custom btn-primary-custom">
+                            <i class="fas fa-map-marked-alt me-2"></i>
+                            Explore Churches
+                        </a>
+                        <a href="#history" class="btn btn-custom btn-outline-light">
+                            <i class="fas fa-history me-2"></i>
+                            Our History
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="stats-section section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <span class="stat-number" id="churchCount">35+</span>
+                        <span class="stat-label">Churches</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <span class="stat-number">10</span>
+                        <span class="stat-label">Talukas</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <span class="stat-number">25+</span>
+                        <span class="stat-label">Years</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <span class="stat-number">1998</span>
+                        <span class="stat-label">Established</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section id="history" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">A Rich Tapestry of Faith: History of Christianity in Vasai</h2>
+            <p class="section-subtitle">
+                Discover the remarkable journey of Christianity in Vasai, from its Portuguese colonial roots to the modern Diocese.
+            </p>
+            
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="history-card">
+                        <h4><i class="fas fa-ship me-2"></i>Early Beginnings (16th Century)</h4>
+                        <p>
+                            Christianity arrived in the Vasai region during the 16th century with the Portuguese missionaries, 
+                            including the dedicated Franciscans, Jesuits, Dominicans, and Augustinians. These religious orders 
+                            established the first churches and began the spiritual transformation of the region, creating a 
+                            lasting architectural and spiritual legacy that continues to inspire faithful today.
+                        </p>
+                    </div>
+                    
+                    <div class="history-card">
+                        <h4><i class="fas fa-seedling me-2"></i>Growth and Perseverance</h4>
+                        <p>
+                            Through various historical periods and challenges, the Christian community in Vasai demonstrated 
+                            remarkable resilience and growth. The community not only sustained itself but flourished, 
+                            contributing significantly to the cultural, educational, and social fabric of the region. 
+                            Churches became centers of learning, healthcare, and community development.
+                        </p>
+                    </div>
+                    
+                    <div class="history-card">
+                        <h4><i class="fas fa-cathedral me-2"></i>Establishment of the Diocese (1998)</h4>
+                        <p>
+                            The Diocese of Vasai was officially established in 1998 by Pope John Paul II, recognizing the 
+                            growing Catholic population and the need for dedicated pastoral care in the region. This marked 
+                            a significant milestone, creating an independent ecclesiastical territory to serve the faithful 
+                            across the diverse communities of the Palghar district.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Diocese Section -->
+    <section id="diocese" class="section-padding" style="background: var(--bg-light);">
+        <div class="container">
+            <h2 class="section-title">The Diocese of Vasai: Our Mission and Scope</h2>
+            <p class="section-subtitle">
+                Serving the faithful across ten talukas with dedication, compassion, and unwavering commitment to our Lord's mission.
+            </p>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="history-card">
+                        <h4><i class="fas fa-cross me-2"></i>Diocesan Profile</h4>
+                        <p>
+                            The Diocese of Vasai is committed to spreading the Gospel, nurturing faith, and serving our 
+                            communities with love and compassion. Our mission encompasses spiritual guidance, education, 
+                            healthcare, and social justice, following Christ's teachings and serving as a beacon of hope 
+                            for all people.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="history-card">
+                        <h4><i class="fas fa-globe-asia me-2"></i>Geographical Reach</h4>
+                        <p>
+                            Our Diocese encompasses the ten talukas of the Palghar district: Vasai, Palghar, Dahanu, 
+                            Talasari, Jawar, Bhiwandi, Shahapur, Wada, Mokhada, and Vikramgad. This vast and diverse 
+                            territory allows us to serve communities ranging from coastal fishing villages to tribal 
+                            areas in the hills.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="history-card">
+                        <h4><i class="fas fa-hands-helping me-2"></i>Pastoral and Social Ministries</h4>
+                        <p>
+                            Our Diocese is actively involved in education through numerous affiliated schools and colleges, 
+                            healthcare services, social justice initiatives, pastoral care, and community development 
+                            programs. We strive to address both spiritual and temporal needs of our faithful and the 
+                            broader community.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="history-card">
+                        <h4><i class="fas fa-user-tie me-2"></i>Leadership</h4>
+                        <p>
+                            Under the pastoral leadership of Most Rev. Dr. Thomas D'Souza, Bishop of Vasai, our Diocese 
+                            is served by dedicated clergy, religious sisters and brothers, and committed lay faithful 
+                            who work together to build the Kingdom of God in our communities.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Map Section -->
+<section class="map-section">
+        <div class="map-wrapper">
+            <h2 class="section-title">Locate Our Churches: Interactive Map</h2>
+            <p class="section-subtitle">
+                Explore our churches through this interactive map. Click on any church marker to discover detailed 
+                information, switch between map views, and get directions to visit our parishes.
+            </p>
+            
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="map-container" id="mapContainer">
+                        <button class="fullscreen-btn" id="fullscreenBtn" title="Toggle Fullscreen">
+                            <i class="fas fa-expand" id="fullscreenIcon"></i>
+                        </button>
+                        <div id="map"></div>
+                    </div>
+                    <div class="mt-3">
+                        <p class="text-muted">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Use the layer control to switch between street and satellite views. Click markers for details and directions.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div id="churchInfo" class="info-box hidden">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                        </div>
+                        <p class="text-center text-muted mt-3">
+                            Click on a church marker to view detailed information
+                        </p>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h5><i class="fas fa-question-circle me-2"></i>How to Use the Map</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <i class="fas fa-mouse-pointer text-primary me-2"></i>
+                                Click on church markers for details
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-layer-group text-primary me-2"></i>
+                                Switch between street and satellite views
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-search-plus text-primary me-2"></i>
+                                Zoom in/out to explore different areas
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-expand text-primary me-2"></i>
+                                Use fullscreen mode for better exploration
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-directions text-primary me-2"></i>
+                                Get directions via Google Maps
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Leaflet JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+// Complete church data from JSON
+const churchData =
+[
+  {
+    "name": "Our Lady of Grace Cathedral",
+    "coordinates": {
+      "latitude": 19.467406,
+      "longitude": 72.809989
+    },
+    "address": "Mahatma Gandhi Rd, Perbodi Wadi, Orbhat, Naigaon West, Naigaon, Vasai-Virar, Maharashtra 401201",
+    "description": "The Cathedral of the Vasai Diocese, a historic and central church, serving as the seat of the Bishop.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "St. Gonsalo Garcia College of Arts & Commerce (Vasai)",
+      "Thomas Baptista High School & Jr College (Vasai)"
+    ]
+  },
+  {
+    "name": "St. Gonsalo Garcia Church",
+    "coordinates": {
+      "latitude": 19.426284,
+      "longitude": 72.827361
+    },
+    "address": "St Gonsalo Garcia Church Rd, Suyog Nagar, Vasai West, Vasai-Virar, Maharashtra 401202",
+    "description": "A prominent church in Gass village, Vasai.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "St. Gonsalo Garcia High School (Gass)"
+    ]
+  },
+  {
+    "name": "St. Michael Church",
+    "coordinates": {
+      "latitude": 19.438515,
+      "longitude": 72.836052
+    },
+    "address": "St Michaels Church Rd, Manickpur, Naigaon West, Naigaon, Navghar-Manikpur, Maharashtra 401202",
+    "description": "A well-known church located in the Manikpur area of Vasai Road.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "St. Michael's High School (Manikpur)",
+      "St. John de Britto Adhyapak Vidyalaya (Manikpur)"
+    ]
+  },
+  {
+    "name": "Holy Cross Church",
+    "coordinates": {
+      "latitude": 19.475476,
+      "longitude": 72.819777
+    },
+    "address": "Nlasopara-W, Vasai, CQ2H+VVR, Nirmal, Nalasopara West, Thane, Nala Sopara, Maharashtra 401304",
+    "description": "A significant church in Nirmal, known for its spiritual activities and historical significance.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "Holy Cross High School (Nirmal)"
+    ]
+  },
+  {
+    "name": "Holy Spirit Church",
+    "coordinates": {
+      "latitude": 19.504269,
+      "longitude": 72.80989
+    },
+    "address": "CQQM+J8W, Nalla - Nandakhal Rd, Torbhat, Nandakhal, Virar West, Virar, Maharashtra 401301",
+    "description": "Serves a wide array of villages in the Nandakhal area. Known for its active community.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "Holy Spirit High School (Nandakhal)"
+    ]
+  },
+  {
+    "name": "Our Lady of Light Church",
+    "coordinates": {
+      "latitude": 19.5015,
+      "longitude": 72.802
+    },
+    "address": "Agashi, Vasai, Palghar, Maharashtra, 401301",
+    "description": "A historic church in Agashi, a coastal village in Vasai, popular for its beautiful architecture.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "Our Lady of Light High School (Agashi)"
+    ]
+  },
+  {
+    "name": "St. Thomas Church",
+    "coordinates": {
+      "latitude": 19.474667,
+      "longitude": 72.809074
+    },
+    "address": "9R83+MJX, Mothebhat, Mudi, Vasai West, Sandor, Maharashtra 401201",
+    "description": "One of the oldest churches in Vasai, originally built in 1556, rich in history.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "St. Thomas High School (Sandor)"
+    ]
+  },
+  {
+    "name": "Our Lady of Mercy Church",
+    "coordinates": {
+      "latitude": 19.462615,
+      "longitude": 72.805626
+    },
+    "address": "Augustine Colaco Road, Maley Wadi Varcha Mala, Vasai West, Sandor, Maharashtra 401201",
+    "description": "An old church built in 1606, dedicated to Our Lady of Mercy.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": []
+  },
+  {
+    "name": "St. Roque Church",
+    "coordinates": {
+      "latitude": 19.431056,
+      "longitude": 72.840742
+    },
+    "address": "9RXR+GVG, Gokhivare Rd, Madhuban Township, Golani Naka, Vasai East, Vasai-Virar, Maharashtra 401208",
+    "description": "A church serving the Gokhivare and Waliv areas in Vasai East, known for its community outreach.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "St. Roque High School (Waliv/Gokhivare)",
+      "Fr. Agnel School (Waliv) - *Note: While Fr. Agnel is nearby, St. Roque Parish might have its own primary school directly attached.*"
+    ]
+  },
+  {
+    "name": "Blessed Mother Teresa Church",
+    "coordinates": {
+      "latitude": 19.467406,
+      "longitude": 72.792881
+    },
+    "address": "Virat Nagar Rd, Near Platform no 1, Gaothan, Virar West, Virar, Maharashtra 401303",
+    "description": "Dedicated to Blessed Mother Teresa, serving the growing Virar West community.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "Blessed Mother Teresa High School (Virar West)"
+    ]
+  },
+  {
+    "name": "Christ the King Church",
+    "coordinates": {
+      "latitude": 19.458428,
+      "longitude": 72.799793
+    },
+    "address": "CQQV+HPC, VIVA City, Bolinj, Virar West, Virar, Maharashtra 401303",
+    "description": "A modern church in the rapidly developing Bolinj area of Virar West.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "Christ the King School (Bolinj)"
+    ]
+  },
+  {
+    "name": "Divine Mercy Church",
+    "coordinates": {
+      "latitude": 19.293999,
+      "longitude": 73.012903
+    },
+    "address": "Priests of the Sacred Heart of Jesus, Old Agra Rd, beside B Mart, Durgesh Park, DEHONIANS - SCJ, Kalher, Bhiwandi, Maharashtra 421302",
+    "description": "Serving the Catholic community in the Kalher area of Bhiwandi Taluka.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": []
+  },
+  {
+    "name": "Holy Family Church",
+    "coordinates": {
+      "latitude": 19.489033,
+      "longitude": 72.790033
+    },
+    "address": "Holy Family Church Road, 9QPG+3RH, Bhuigaon, Vasai West, Bhuigaon Bk., Maharashtra 401201",
+    "description": "A church in the coastal village of Bhuigaon, known for its serene environment.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "Holy Family High School (Bhuigaon)"
+    ]
+  },
+  {
+    "name": "Holy Trinity Church",
+    "coordinates": {
+      "latitude": 19.470216,
+      "longitude": 72.815049
+    },
+    "address": "CQ6R+CGP, Gomes Ali Church Rd, Gomesali, Nalasopara West, Nala Sopara, Maharashtra 401203",
+    "description": "A church located near Nirmal in Gomesali.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": []
+  },
+  {
+    "name": "Infant Jesus Church",
+    "coordinates": {
+      "latitude": 19.430985,
+      "longitude": 72.842013
+    },
+    "address": "Gokhivare Talao Road, CR3R+FHQ, Evershine City, Vasai East, near Ram Rahim Nagar, Evershine City, Vasai East, Mumbai, Vasai-Virar, Maharashtra 401208",
+    "description": "A church serving the residential areas of Evershine City, with a growing congregation.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "Infant Jesus School (Evershine City)"
+    ]
+  },
+  {
+    "name": "Jyoti Mata Church",
+    "coordinates": {
+      "latitude": 19.479532,
+      "longitude": 72.781608
+    },
+    "address": "Agashi-Arnala Road, Agashi Rd, Dhobi Talav, Agashi, Virar West, Virar, Maharashtra 401303",
+    "description": "Located near the scenic Arnala beach, serving the local fishing community and surrounding areas.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "Jyoti Mata High School (Arnala)"
+    ]
+  },
+  {
+    "name": "Mary Help of Christians Church",
+    "coordinates": {
+      "latitude": 19.4000,
+      "longitude": 72.8800
+    },
+    "address": "7QGW+545, Gorai, Mumbai, Mira Bhayandar, Maharashtra 401106",
+    "description": "Affiliated with the renowned Don Bosco institutions in Naigaon East.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "Don Bosco High School (Naigaon East)"
+    ]
+  },
+  {
+    "name": "Mother of God Church",
+    "coordinates": {
+      "latitude": 19.485011,
+      "longitude": 72.805126
+    },
+    "address": "Mother Of God Church (Palle), Papdy-Naigaon Road, Vadvali, 8RRJ+FRJ, Naigaon Station Rd, Darpale, Palle, Naigaon West, Vasai-Virar, Vadavali, Maharashtra 401207",
+    "description": "A very old church in Palle, built in 1585, reflecting the rich history of Christianity in Vasai.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": []
+  },
+  {
+    "name": "Nirmala Mata Church",
+    "coordinates": {
+      "latitude": 19.385317,
+      "longitude": 72.835174
+    },
+    "address": "9R4R+P2W, Umela, Naigaon West, Naigaon, Vasai-Virar, Maharashtra 401202",
+    "description": "Serving the Umela village community near Naigaon.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": []
+  },
+  {
+    "name": "Our Lady of Fatima Church",
+    "coordinates": {
+      "latitude": 19.450379,
+      "longitude": 72.825227
+    },
+    "address": "Sandor, 9RG7+P23, Chulne, Naigaon West, Naigaon, Sandor, Maharashtra 401201",
+    "description": "A church dedicated to Our Lady of Fatima on Vasai Road.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "Our Lady of Fatima High School (Vasai Road)"
+    ]
+  },
+  {
+    "name": "Our Lady of Grace Remedy Church (Shrine of Our Lady of Remedy)",
+    "coordinates": {
+      "latitude": 19.467149,
+      "longitude": 72.808168
+    },
+    "address": "Shrine of Our Lady of Remedies Church, Remedy Church Rd, Vishramwadi digha holi, Vasai West, Sandor, Vasai-Virar, Maharashtra 401201",
+    "description": "A popular shrine and church dedicated to Our Lady of Remedy, a significant pilgrimage site.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": []
+  },
+  {
+    "name": "Our Lady of Lourdes Church",
+    "coordinates": {
+      "latitude": 19.507421,
+      "longitude": 72.806653
+    },
+    "address": "FQ2H+322, Choliwadi, shirlaiwadi, Virar West, Virar, Maharashtra 401301",
+    "description": "A church serving the Shirlai village area.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": []
+  },
+  {
+    "name": "St. Francis Xavier's Church",
+    "coordinates": {
+      "latitude": 19.468048,
+      "longitude": 72.803014
+    },
+    "address": "9QCR+XGJ, Gaon, Nardoli Gaon, Vasai West, Saloli, Giriz, Maharashtra 401201",
+    "description": "Dedicated to St. Francis Xavier, located in Giriz village, known for its vibrant community.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "St. Francis Xavier High School (Giriz)"
+    ]
+  },
+  {
+    "name": "St. Ignatius Loyola Church",
+    "coordinates": {
+      "latitude": 19.434771,
+      "longitude": 72.839886
+    },
+    "address": "Tarkhad Rd, Navghar, Naigaon West, Naigaon, Tarkhad, Maharashtra 401202",
+    "description": "A church named after the founder of the Jesuit order, serving a growing residential area.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "St. Ignatius Loyola High School (Ambadi Road)"
+    ]
+  },
+  {
+    "name": "St. Jude Church",
+    "coordinates": {
+      "latitude": 19.4300,
+      "longitude": 72.8450
+    },
+    "address": "Stella Road, St Gonsalo Garcia Church Rd, next to Bishop's House, Suyog Nagar, Vasai West, New Barampur, Vasai-Virar, Maharashtra 401202",
+    "description": "A parish church in Vasai East, dedicated to St. Jude.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "St. Jude High School (Vasai East)"
+    ]
+  },
+  {
+    "name": "St. Peter's Church",
+    "coordinates": {
+      "latitude": 19.4500,
+      "longitude": 72.8350
+    },
+    "address": "8RQ3+4P4, West, Koliwada, Vasai West, Naigaon, Vasai-Virar, Maharashtra 401201",
+    "description": "A major parish church located on Vasai Road, a central hub for the Catholic community in Vasai East.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "St. Peter's High School (Vasai East)",
+      "St. Anthony's Convent School (Vasai East)"
+    ]
+  },
+  {
+    "name": "St. Sebastian Church",
+    "coordinates": {
+      "latitude": 19.4400,
+      "longitude": 72.8400
+    },
+    "address": "Vasai East, Palghar, Maharashtra, 401208",
+    "description": "A parish church in Vasai East, serving its local community.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": []
+  },
+  {
+    "name": "St. Stephen Church",
+    "coordinates": {
+      "latitude": 19.4450,
+      "longitude": 72.8300
+    },
+    "address": "Vasai East, Palghar, Maharashtra, 401208",
+    "description": "A parish church in Vasai East, contributing to the spiritual life of the area.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": []
+  },
+  {
+    "name": "St. Vincent Ferrer Church",
+    "coordinates": {
+      "latitude": 19.4370,
+      "longitude": 72.8480
+    },
+    "address": "St Michaels Church Rd, Manickpur, Naigaon West, Naigaon, Navghar-Manikpur, Maharashtra 401202",
+    "description": "A parish church in Vasai East, dedicated to St. Vincent Ferrer.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": []
+  },
+  {
+    "name": "Our Lady of Perpetual Succour Church",
+    "coordinates": {
+      "latitude": 20.0090,
+      "longitude": 72.9320
+    },
+    "address": "3W42+6GG, St Anthony's Rd, Chembur, Mumbai, Maharashtra 400071",
+    "description": "Serving the tribal and rural areas in Talasari taluka, actively involved in local development.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "St. John Mary Vianney School (Shishne)",
+      "St. Dominic Savio School (Dhodhapada)",
+      "St. John Paul II School (Uplat)",
+      "St. Jude School (Patilpada)",
+      "St. Francis Xavier School (Varkhanda)",
+      "St. Teresa of Kolkata School (Udhwa)",
+      "St. Thomas School (Rabadpada)"
+    ]
+  },
+  {
+    "name": "Krupa Mata Church",
+    "coordinates": {
+      "latitude": 19.9800,
+      "longitude": 72.7800
+    },
+    "address": "XPQH+GRR, Road, near St.Mary's High School, Masoli Mahayavanshi Area, Masoli, Dahanu, Maharashtra 401602",
+    "description": "A church serving the Haladpada area of Dahanu.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": []
+  },
+  {
+    "name": "Nativity of Our Lady Church",
+    "coordinates": {
+      "latitude": 19.7890,
+      "longitude": 72.7750
+    },
+    "address": "PQ49+Q4G, Gothan Pura, Palghar, Maharashtra 401404",
+    "description": "Located on Boisar Road, serving the local community of Palghar.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "Nativity of Our Lady School (Palghar)"
+    ]
+  },
+  {
+    "name": "Our Lady of Health Church",
+    "coordinates": {
+      "latitude": 19.7950,
+      "longitude": 72.8100
+    },
+    "address": "Boisar Chillhar, Road, Maan, Maharashtra 401501",
+    "description": "A church in Maan Village, Boisar East, playing a vital role in the spiritual life of the area.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "Our Lady of Health High School (Boisar)"
+    ]
+  },
+  {
+    "name": "St. Joseph Church",
+    "coordinates": {
+      "latitude": 19.6880,
+      "longitude": 72.7700
+    },
+    "address": "CQFW+MXJ, Bolinj-Sopara Rd, Umrale, umralla, Nalasopara West, Nala Sopara, Maharashtra 401203",
+    "description": "A central church in Palghar town, serving a large congregation.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "St. Joseph's High School (Palghar)"
+    ]
+  },
+  {
+    "name": "St. Andrew's Church",
+    "coordinates": {
+      "latitude": 19.9800,
+      "longitude": 72.7300
+    },
+    "address": "8Q4Q+RX5, Pali Chowk Rd, Dongri, Uttan, Mira Bhayandar, Maharashtra 401106",
+    "description": "A church in Dahanu town, active in community programs.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": [
+      "St. Andrew's High School (Dahanu)"
+    ]
+  },
+  {
+    "name": "St. Alphonsa Forane Church",
+    "coordinates": {
+      "latitude": 19.4620,
+      "longitude": 72.8090
+    },
+    "address": "Petrol Pump, St Alphonsa Church Rd, near Stella, Jari Mari Nagar, Chandrapada, Vasai-Virar, Maharashtra 401202",
+    "description": "A prominent Syro-Malabar Catholic Church in Vasai West, serving the Eastern Rite faithful.",
+    "type": "Syro-Malabar Catholic Church (Diocese of Kalyan)",
+    "affiliated_organizations": [
+      "St. Alphonsa Public School (Vasai West)"
+    ]
+  },
+  {
+    "name": "St. Thomas Church",
+    "coordinates": {
+      "latitude": 19.4315,
+      "longitude": 72.8425
+    },
+    "address": "Evershine Church Road, Dt, Evershine City, Vasai East, Palghar, Vasai-Virar, Maharashtra 401208",
+    "description": "A Syro-Malabar Catholic Church serving the Vasai East region, including Evershine City and its surrounding family units.",
+    "type": "Syro-Malabar Catholic Church (Diocese of Kalyan)",
+    "affiliated_organizations": [
+      "St. Thomas High School (Vasai East)"
+    ]
+  },
+  {
+    "name": "St. James Church, Agashi",
+    "coordinates": {
+      "latitude": 19.489111,
+      "longitude": 72.793739
+    },
+    "address": "FQ7F+H77, Agashi, Virar West, Thane, Virar, Maharashtra 401301",
+    "description": "A prominent church in Agashi.",
+    "type": "Latin Rite Catholic Church",
+    "affiliated_organizations": []
+  }
+]
+
+
+
+// Initialize map with proper mobile settings
+        let map = L.map('map', {
+            center: [19.4590, 72.8138],
+            zoom: 11,
+            zoomControl: true,
+            scrollWheelZoom: true,
+            touchZoom: true,
+            doubleClickZoom: true,
+            boxZoom: true,
+            tap: true,
+            tapTolerance: 15,
+            trackResize: true,
+            worldCopyJump: false,
+            closePopupOnClick: true,
+            bounceAtZoomLimits: true
+        });
+
+        // Base layers
+        const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19,
+            tileSize: 256,
+            zoomOffset: 0
+        });
+
+        const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: '© Esri',
+            maxZoom: 19,
+            tileSize: 256,
+            zoomOffset: 0
+        });
+
+        // Add default layer
+        osmLayer.addTo(map);
+
+        // Layer control
+        const baseLayers = {
+            "Street Map": osmLayer,
+            "Satellite": satelliteLayer
+        };
+
+        L.control.layers(baseLayers).addTo(map);
+
+        // Custom church icons
+        const churchIcon = L.divIcon({
+            className: 'church-marker',
+            html: '<div style="background: linear-gradient(135deg, #8B4513, #D2691E); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.3); border: 2px solid white;">⛪</div>',
+            iconSize: [28, 28],
+            iconAnchor: [14, 14]
+        });
+
+        const cathedralIcon = L.divIcon({
+            className: 'cathedral-marker',
+            html: '<div style="background: linear-gradient(135deg, #8B0000, #FF4500); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; box-shadow: 0 3px 12px rgba(0,0,0,0.4); border: 3px solid gold;">⛪</div>',
+            iconSize: [32, 32],
+            iconAnchor: [16, 16]
+        });
+
+        // Create popup content
+        function createPopupContent(church) {
+            const affiliatedOrgs = church.affiliated_organizations.length > 0 
+                ? church.affiliated_organizations.map(org => `<li style="margin-bottom: 3px;">${org}</li>`).join('') 
+                : '<li>No affiliated organizations listed</li>';
+            
+            const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${church.coordinates.latitude},${church.coordinates.longitude}`;
+            
+            return `
+                <div class="church-popup">
+                    <h3>${church.name}</h3>
+                    <div style="margin-bottom: 8px;">
+                        <strong>Type:</strong> ${church.type}
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <strong>Address:</strong> ${church.address}
+                    </div>
+                    <div style="margin-bottom: 12px;">
+                        <strong>Description:</strong> ${church.description}
+                    </div>
+                    ${church.affiliated_organizations.length > 0 ? `
+                    <div style="margin-bottom: 12px;">
+                        <strong>Affiliated Organizations:</strong>
+                        <ul style="margin: 5px 0; padding-left: 20px; font-size: 13px;">
+                            ${affiliatedOrgs}
+                        </ul>
+                    </div>
+                    ` : ''}
+                    <div style="text-align: center; margin-top: 15px;">
+                        <a href="${googleMapsUrl}" target="_blank" 
+                           style="background: linear-gradient(135deg, #4CAF50, #45a049); color: white; padding: 8px 16px; text-decoration: none; border-radius: 5px; font-size: 14px; display: inline-block;">
+                            📍 Get Directions
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Update church info box
+        function updateChurchInfo(church) {
+            const infoBox = document.getElementById('churchInfo');
+            if (infoBox) {
+                infoBox.classList.remove('hidden');
+                
+                const affiliatedOrgs = church.affiliated_organizations.length > 0 
+                    ? church.affiliated_organizations.map(org => `<li>${org}</li>`).join('') 
+                    : '<li>No affiliated organizations listed</li>';
+                
+                const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${church.coordinates.latitude},${church.coordinates.longitude}`;
+                
+                infoBox.innerHTML = `
+                    <div class="church-details">
+                        <h3>${church.name}</h3>
+                        <div class="detail-item">
+                            <strong>Type:</strong> ${church.type}
+                        </div>
+                        <div class="detail-item">
+                            <strong>Address:</strong> ${church.address}
+                        </div>
+                        <div class="detail-item">
+                            <strong>Description:</strong> ${church.description}
+                        </div>
+                        ${church.affiliated_organizations.length > 0 ? `
+                        <div class="detail-item">
+                            <strong>Affiliated Organizations:</strong>
+                            <ul style="margin-top: 8px; padding-left: 20px;">
+                                ${affiliatedOrgs}
+                            </ul>
+                        </div>
+                        ` : ''}
+                        <a href="${googleMapsUrl}" target="_blank" class="directions-btn">
+                            📍 Get Directions via Google Maps
+                        </a>
+                    </div>
+                `;
+            }
+        }
+
+        // Add markers to map
+        churchData.forEach(church => {
+            const icon = church.name.includes('Cathedral') ? cathedralIcon : churchIcon;
+            
+            const marker = L.marker([church.coordinates.latitude, church.coordinates.longitude], {
+                icon: icon
+            }).addTo(map);
+            
+            marker.bindPopup(createPopupContent(church), {
+                maxWidth: 300,
+                className: 'custom-popup'
+            });
+            
+            marker.on('click', function() {
+                updateChurchInfo(church);
+            });
+        });
+
+        // Fullscreen functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const mapContainer = document.getElementById('mapContainer');
+            const fullscreenIcon = document.getElementById('fullscreenIcon');
+            let isFullscreen = false;
+
+            if (fullscreenBtn && mapContainer && fullscreenIcon) {
+                fullscreenBtn.addEventListener('click', function() {
+                    if (!isFullscreen) {
+                        // Enter fullscreen
+                        mapContainer.classList.add('map-fullscreen');
+                        fullscreenIcon.classList.remove('fa-expand');
+                        fullscreenIcon.classList.add('fa-compress');
+                        isFullscreen = true;
+                        
+                        // Invalidate map size for proper rendering
+                        setTimeout(() => {
+                            map.invalidateSize();
+                        }, 100);
+                    } else {
+                        // Exit fullscreen
+                        mapContainer.classList.remove('map-fullscreen');
+                        fullscreenIcon.classList.remove('fa-compress');
+                        fullscreenIcon.classList.add('fa-expand');
+                        isFullscreen = false;
+                        
+                        // Invalidate map size for proper rendering
+                        setTimeout(() => {
+                            map.invalidateSize();
+                        }, 100);
+                    }
+                });
+
+                // Exit fullscreen on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && isFullscreen) {
+                        fullscreenBtn.click();
+                    }
+                });
+            }
+        });
+
+        // Fix mobile scrolling issues
+        map.on('focus', function() {
+            map.scrollWheelZoom.enable();
+        });
+
+        map.on('blur', function() {
+            map.scrollWheelZoom.disable();
+        });
+
+        // Initialize with first church info
+        if (churchData.length > 0) {
+            updateChurchInfo(churchData[0]);
+        }
+
+        console.log('Diocese of Vasai Interactive Map loaded successfully!');
+        console.log(`Total churches loaded: ${churchData.length}`);
+</script>
+
+    <footer style="background: linear-gradient(135deg, #8B4513, #D2691E); color: white; text-align: center; padding: 20px; margin-top: 40px;">
+        <p>&copy; 2025 Diocese of Vasai. Serving the Catholic Community with Faith, Hope & Love.</p>
+        <p style="font-size: 14px; opacity: 0.8;">For inquiries, contact: Most Rev. Dr. Thomas D'Souza, Bishop of Vasai</p>
+    </footer>
+
+</body>
+</html>
