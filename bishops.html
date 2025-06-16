@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bishop - Diocese of Vasai</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+       <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/global.css">
+    
+    <style>
+        /* Enhanced CSS for Bishop Page Content */
+        :root {
+            --primary-blue: #2563eb;
+            --secondary-blue: #1e40af;
+            --accent-gold: #f59e0b;
+            --bg-light: #f8fafc;
+            --text-light: #64748b;
+            --shadow-light: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-section {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.85), rgba(30, 64, 175, 0.85));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem 0;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            opacity: 0.95;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-light);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-blue) !important;
+            font-size: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--primary-blue) !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-gold) !important;
+        }
+
+        .section-padding {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--primary-blue));
+            border-radius: 2px;
+        }
+
+        .bishop-info {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bishop-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
+        }
+
+        .bishop-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            transform: translateY(-50px);
+        }
+
+        .bishop-image-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        .bishop-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .bishop-image:hover {
+            transform: scale(1.05);
+        }
+
+        .bishop-image-container::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid var(--accent-gold);
+            border-radius: 50%;
+            opacity: 0.6;
+            z-index: -1;
+        }
+
+        .bishop-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .bishop-appointment {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .info-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            border-radius: 15px;
+            border-left: 6px solid var(--accent-gold);
+        }
+
+        .info-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--secondary-blue);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .info-section p {
+            color: #475569;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .highlight-text {
+            background: linear-gradient(135deg, var(--accent-gold), #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        .past-bishops-section {
+            background: white;
+            position: relative;
+        }
+
+        .past-bishops-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(45deg, transparent 49%, rgba(37, 99, 235, 0.02) 50%, transparent 51%),
+                linear-gradient(-45deg, transparent 49%, rgba(245, 158, 11, 0.02) 50%, transparent 51%);
+            background-size: 30px 30px;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--primary-blue), var(--accent-gold));
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding: 0 2rem;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: 0;
+            margin-right: 50%;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 50%;
+            margin-right: 0;
+            text-align: left;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 2rem;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-gold);
+            border: 4px solid white;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 3;
+        }
+
+        .bishop-name-timeline {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .bishop-tenure {
+            color: var(--text-light);
+            font-weight: 500;
+            background: var(--bg-light);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .icon-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent-gold), #fbbf24);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bishop-card {
+            animation: slideUp 1s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(-50px);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .bishop-card {
+                padding: 2rem;
+                transform: translateY(-30px);
+            }
+            
+            .bishop-image {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .bishop-name {
+                font-size: 2rem;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                margin-left: 60px;
+                margin-right: 0;
+                text-align: left;
+            }
+            
+            .timeline-dot {
+                left: 20px;
+            }
+            
+            .info-section {
+                padding: 1.5rem;
+            }
+            
+            .info-section h3 {
+                font-size: 1.5rem;
+            }
+            
+            .contact-hero {
+                padding: 100px 0 60px;
+            }
+            
+            .location-info {
+                padding: 2rem;
+            }
+            
+            .form-card {
+                padding: 2rem;
+            }
+            
+            .quick-actions {
+                flex-direction: column;
+            }
+            
+            .quick-action {
+                min-width: auto;
+            }
+            
+            .footer-bottom-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .map-container {
+                min-height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#hero">
+                <i class="fas fa-church"></i>
+                Diocese of Vasai
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#history">History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="diocese.html">Diocese</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="bishops.html">Bishop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="diocese.html">Church Map</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header id="hero" class="hero-section" style="background-image: url('https://images.unsplash.com/photo-1551882544-f08a9bba95c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y2h1cmNofGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60');">
+        <div class="container hero-content text-center text-white">
+            <h1 class="hero-title">The Bishop of Vasai</h1>
+            <p class="hero-subtitle">Serving the spiritual needs of the community.</p>
+        </div>
+    </header>
+
+    <section class="bishop-info section-padding">
+        <div class="container">
+            <div class="bishop-card fade-in">
+                <div class="text-center">
+                    <div class="bishop-image-container">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt="Most Rev. Thomas Francis D'Souza" class="bishop-image">
+                    </div>
+                    <h2 class="bishop-name">Most Rev. Thomas Francis D'Souza</h2>
+                    <div class="bishop-appointment">
+                        <i class="fas fa-crown"></i>
+                        Appointed by Pope Francis on <span class="highlight-text">November 9, 2024</span> | 
+                        Episcopal Ordination: <span class="highlight-text">December 15, 2024</span>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3><span class="icon-badge"><i class="fas fa-baby"></i></span>Early Life and Priesthood</h3>
+                    <p>Born on <strong>March 23, 1970</strong>, in Chulne, Vasai diocese. He studied philosophy and theology at Saint Pius X College in Goregaon and holds a Master's degree in Philosophy and Religion from Madras University. He was ordained a priest on <strong>April 18, 1998</strong>, for the Diocese of Vasai.</p>
+                </div>
+
+                <div class="info-section">
+                    <h3><span class="icon-badge"><i class="fas fa-church"></i></span>Previous Roles</h3>
+                    <p>Before his appointment as Bishop, Most Rev. Thomas D'Souza served in various capacities within the diocese:</p>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="padding: 0.5rem 0; border-left: 3px solid var(--accent-gold); padding-left: 1rem; margin-bottom: 0.5rem; background: rgba(245, 158, 11, 0.05);"><i class="fas fa-cross text-primary me-2"></i><strong>Deputy Parish Priest</strong> of Holy Spirit in Nandakhal (1998-2002)</li>
+                        <li style="padding: 0.5rem 0; border-left: 3px solid var(--accent-gold); padding-left: 1rem; margin-bottom: 0.5rem; background: rgba(245, 158, 11, 0.05);"><i class="fas fa-graduation-cap text-primary me-2"></i><strong>Rector</strong> of the Minor Seminary in Remedy (2000-2001, 2005-2007)</li>
+                        <li style="padding: 0.5rem 0; border-left: 3px solid var(--accent-gold); padding-left: 1rem; margin-bottom: 0.5rem; background: rgba(245, 158, 11, 0.05);"><i class="fas fa-heart text-primary me-2"></i><strong>Parish Priest</strong> of Divine Mercy in Bhiwandi (2003-2005)</li>
+                        <li style="padding: 0.5rem 0; border-left: 3px solid var(--accent-gold); padding-left: 1rem; margin-bottom: 0.5rem; background: rgba(245, 158, 11, 0.05);"><i class="fas fa-praying-hands text-primary me-2"></i><strong>Parish Priest</strong> of Saint James in Agashi (2007-2013)</li>
+                        <li style="padding: 0.5rem 0; border-left: 3px solid var(--accent-gold); padding-left: 1rem; margin-bottom: 0.5rem; background: rgba(245, 158, 11, 0.05);"><i class="fas fa-school text-primary me-2"></i><strong>Parish Priest</strong> of Holy Spirit and Head of Saint Joseph High School and Junior College in Nandakhal (2019-present)</li>
+                    </ul>
+                </div>
+
+                <div class="info-section">
+                    <h3><span class="icon-badge"><i class="fas fa-dove"></i></span>Episcopal Motto and Vision</h3>
+                    <p>Bishop D'Souza has expressed his deep commitment to focusing on the welfare of the <strong>poor, marginalized, and farming communities</strong>, as well as the preservation of the local ecology. His pastoral approach emphasizes social justice, environmental stewardship, and inclusive community development.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="past-bishops-section section-padding">
+        <div class="container">
+            <h2 class="section-title">Legacy of Leadership</h2>
+            <p class="text-center text-muted mb-5" style="font-size: 1.2rem; max-width: 600px; margin: 0 auto 3rem auto;">
+                Honoring the spiritual shepherds who have guided the Diocese of Vasai through decades of faith and service
+            </p>
+            
+            <div class="timeline">
+                <div class="timeline-item fade-in" style="animation-delay: 0.2s;">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4 class="bishop-name-timeline">Most Rev. Thomas Dabre</h4>
+                        <div class="bishop-tenure">May 22, 1998 – April 4, 2009</div>
+                        <p class="mt-2 text-muted">First Bishop of Vasai, established the foundation of the diocese and led the community through its formative years.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-in" style="animation-delay: 0.4s;">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4 class="bishop-name-timeline">Most Rev. Felix Anthony Machado</h4>
+                        <div class="bishop-tenure">November 10, 2009 – June 6, 2024</div>
+                        <p class="mt-2 text-muted">Strengthened the diocese through significant growth and modernization, fostering community development and spiritual renewal.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-in" style="animation-delay: 0.6s;">
+                    <div class="timeline-dot" style="background: var(--primary-blue); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);"></div>
+                    <div class="timeline-content" style="border: 2px solid var(--primary-blue);">
+                        <h4 class="bishop-name-timeline" style="color: var(--primary-blue);">Most Rev. Thomas Francis D'Souza</h4>
+                        <div class="bishop-tenure" style="background: var(--primary-blue); color: white;">December 15, 2024 – Present</div>
+                        <p class="mt-2 text-muted">Current Bishop, bringing fresh vision for environmental stewardship and social justice to guide the diocese into the future.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="https://placehold.co/50x50/2563eb/ffffff?text=✝" alt="Shield of Faith Logo">
+                        <h2>The Shield of Faith</h2>
+                    </div>
+                    <p class="footer-tagline">
+                        Nurturing souls, strengthening faith, and building community in Christ's love since 1891
+                    </p>
+                </div>
+
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>Quick Links</h3>
+                        <ul class="footer-links">
+                            <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                            <li><a href="events.html"><i class="fas fa-chevron-right"></i> Events</a></li>
+                            <li><a href="join.html"><i class="fas fa-chevron-right"></i> Join Us</a></li>
+                            <li><a href="admin_login.html"><i class="fas fa-chevron-right"></i> Admin</a></li>
+                            <li><a href="#donate"><i class="fas fa-chevron-right"></i> Support Us</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Contact Us</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div>
+                                    <strong>Address</strong><br>
+                                    Vasai Diocese, Maharashtra, India
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <strong>Phone</strong><br>
+                                    <a href="tel:+91-9876543210">+91 98765 43210</a>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <strong>Email</strong><br>
+                                    <a href="mailto:info@shieldoffaith.org">info@shieldoffaith.org</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Mass Schedule</h3>
+                        <div class="mass-schedule">
+                            <div class="mass-times">
+                                <div class="mass-time">
+                                    <span><strong>Sunday</strong></span>
+                                    <span>9:00 AM</span>
+                                </div>
+                                <div class="mass-time">
+                                    <span><strong>Wednesday</strong></span>
+                                    <span>7:00 PM</span>
+                                </div>
+                                <div class="mass-time">
+                                    <span><strong>Saturday</strong></span>
+                                    <span>6:30 PM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Diocese Information</h3>
+                        <ul class="footer-links">
+                            <li><a href="bishops.html"><i class="fas fa-user-tie"></i> Bishop Thomas D'Souza</a></li>
+                            <li><a href="diocese.html"><i class="fas fa-church"></i> Vasai Diocese</a></li>
+                            <li><a href="history.html"><i class="fas fa-calendar-alt"></i> Established 1891</a></li>
+                            <li><a href="parishes.html"><i class="fas fa-book-open"></i> Parish Directory</a></li>
+                            <li><a href="news.html"><i class="fas fa-newspaper"></i> Diocese News</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="social-section">
+                    <h3 style="color: white; font-family: 'Playfair Display', serif; margin-bottom: 1rem;">Connect With Us</h3>
+                    <p style="color: #94a3b8; margin-bottom: 1rem;">Join our community online and stay updated with our latest activities</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <div class="footer-left">
+                        <p>&copy; 2024 The Shield of Faith Community, Vasai Diocese. All rights reserved.</p>
+                        <p class="designer-credit">
+                            Designed by <a href="http://rickyrodrigues.me/portfolio/" target="_blank" rel="noopener noreferrer" class="designer-link">Ricky Rodrigues</a>
+                        </p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="privacy.html">Privacy Policy</a> | 
+                        <a href="terms.html">Terms of Service</a> | 
+                        <a href="sitemap.html">Site Map</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Enhanced JavaScript for animations
+        // Enhanced JavaScript for animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Intersection Observer for fade-in animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all fade-in elements
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Navbar background change on scroll
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                    navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+                } else {
+                    navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                    navbar.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
+                }
+            });
+
+            // Timeline animation on scroll
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const timelineObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        entry.target.querySelector('.timeline-content').style.transform = 'scale(1)';
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            timelineItems.forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(30px)';
+                item.style.transition = 'all 0.6s ease';
+                item.querySelector('.timeline-content').style.transform = 'scale(0.95)';
+                item.querySelector('.timeline-content').style.transition = 'all 0.3s ease';
+                timelineObserver.observe(item);
+            });
+
+            // Bishop image hover effect
+            const bishopImage = document.querySelector('.bishop-image');
+            if (bishopImage) {
+                bishopImage.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.05) rotate(2deg)';
+                    this.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.3)';
+                });
+
+                bishopImage.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1) rotate(0deg)';
+                    this.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.2)';
+                });
+            }
+
+            // Info sections hover effect
+            document.querySelectorAll('.info-section').forEach(section => {
+                section.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.15)';
+                });
+
+                section.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                });
+            });
+
+            // Parallax effect for hero section
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const hero = document.querySelector('.hero-section');
+                if (hero) {
+                    hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+                }
+            });
+
+            // Add loading animation to bishop card
+            const bishopCard = document.querySelector('.bishop-card');
+            if (bishopCard) {
+                bishopCard.style.opacity = '0';
+                bishopCard.style.transform = 'translateY(50px)';
+                
+                setTimeout(() => {
+                    bishopCard.style.transition = 'all 1s ease-out';
+                    bishopCard.style.opacity = '1';
+                    bishopCard.style.transform = 'translateY(-50px)';
+                }, 300);
+            }
+
+            // Icon badge hover effects
+            document.querySelectorAll('.icon-badge').forEach(badge => {
+                badge.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.1) rotate(10deg)';
+                    this.style.boxShadow = '0 5px 15px rgba(245, 158, 11, 0.4)';
+                });
+
+                badge.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1) rotate(0deg)';
+                    this.style.boxShadow = 'none';
+                });
+            });
+
+            // Add typing effect to hero title
+            const heroTitle = document.querySelector('.hero-title');
+            if (heroTitle) {
+                const text = heroTitle.textContent;
+                heroTitle.textContent = '';
+                heroTitle.style.borderRight = '3px solid white';
+                
+                let i = 0;
+                const typeWriter = () => {
+                    if (i < text.length) {
+                        heroTitle.textContent += text.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, 100);
+                    } else {
+                        setTimeout(() => {
+                            heroTitle.style.borderRight = 'none';
+                        }, 1000);
+                    }
+                };
+                
+                setTimeout(typeWriter, 1000);
+            }
+
+            // Add floating animation to timeline dots
+            document.querySelectorAll('.timeline-dot').forEach((dot, index) => {
+                dot.style.animation = `float 3s ease-in-out infinite ${index * 0.5}s`;
+            });
+
+            // Add CSS for floating animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes float {
+                    0%, 100% { transform: translateX(-50%) translateY(0px); }
+                    50% { transform: translateX(-50%) translateY(-5px); }
+                }
+                
+                .timeline-content {
+                    transition: all 0.3s ease;
+                }
+                
+                .info-section {
+                    transition: all 0.3s ease;
+                }
+                
+                .icon-badge {
+                    transition: all 0.3s ease;
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>

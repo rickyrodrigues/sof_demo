@@ -16,7 +16,7 @@
     
     <!-- Leaflet CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" rel="stylesheet">
-    
+    <link rel="stylesheet" href="css/global.css">
     <style>
         :root {
             --primary-blue: #2563eb;
@@ -1473,9 +1473,131 @@ const churchData =
         console.log(`Total churches loaded: ${churchData.length}`);
 </script>
 
-    <footer style="background: linear-gradient(135deg, #8B4513, #D2691E); color: white; text-align: center; padding: 20px; margin-top: 40px;">
-        <p>&copy; 2025 Diocese of Vasai. Serving the Catholic Community with Faith, Hope & Love.</p>
-        <p style="font-size: 14px; opacity: 0.8;">For inquiries, contact: Most Rev. Dr. Thomas D'Souza, Bishop of Vasai</p>
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="https://placehold.co/50x50/2563eb/ffffff?text=✝" alt="Shield of Faith Logo">
+                        <h2>The Shield of Faith</h2>
+                    </div>
+                    <p class="footer-tagline">
+                        Nurturing souls, strengthening faith, and building community in Christ's love since 1891
+                    </p>
+                </div>
+
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>Quick Links</h3>
+                        <ul class="footer-links">
+                            <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                            <li><a href="events.html"><i class="fas fa-chevron-right"></i> Events</a></li>
+                            <li><a href="join.html"><i class="fas fa-chevron-right"></i> Join Us</a></li>
+                            <li><a href="admin_login.html"><i class="fas fa-chevron-right"></i> Admin</a></li>
+                            <li><a href="#donate"><i class="fas fa-chevron-right"></i> Support Us</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Contact Us</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div>
+                                    <strong>Address</strong><br>
+                                    Vasai Diocese, Maharashtra, India
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <strong>Phone</strong><br>
+                                    <a href="tel:+91-9876543210">+91 98765 43210</a>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <strong>Email</strong><br>
+                                    <a href="mailto:info@shieldoffaith.org">info@shieldoffaith.org</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Mass Schedule</h3>
+                        <div class="mass-schedule">
+                            <div class="mass-times">
+                                <div class="mass-time">
+                                    <span><strong>Sunday</strong></span>
+                                    <span>9:00 AM</span>
+                                </div>
+                                <div class="mass-time">
+                                    <span><strong>Wednesday</strong></span>
+                                    <span>7:00 PM</span>
+                                </div>
+                                <div class="mass-time">
+                                    <span><strong>Saturday</strong></span>
+                                    <span>6:30 PM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Diocese Information</h3>
+                        <ul class="footer-links">
+                            <li><a href="bishops.html"><i class="fas fa-user-tie"></i> Bishop Thomas D'Souza</a></li>
+                            <li><a href="diocese.html"><i class="fas fa-church"></i> Vasai Diocese</a></li>
+                            <li><a href="history.html"><i class="fas fa-calendar-alt"></i> Established 1891</a></li>
+                            <li><a href="parishes.html"><i class="fas fa-book-open"></i> Parish Directory</a></li>
+                            <li><a href="news.html"><i class="fas fa-newspaper"></i> Diocese News</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="social-section">
+                    <h3 style="color: white; font-family: 'Playfair Display', serif; margin-bottom: 1rem;">Connect With Us</h3>
+                    <p style="color: #94a3b8; margin-bottom: 1rem;">Join our community online and stay updated with our latest activities</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <div class="footer-left">
+                        <p>&copy; 2024 The Shield of Faith Community, Vasai Diocese. All rights reserved.</p>
+                        <p class="designer-credit">
+                            Designed by <a href="http://rickyrodrigues.me/portfolio/" target="_blank" rel="noopener noreferrer" class="designer-link">Ricky Rodrigues</a>
+                        </p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="privacy.html">Privacy Policy</a> | 
+                        <a href="terms.html">Terms of Service</a> | 
+                        <a href="sitemap.html">Site Map</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </footer>
 
 </body>
